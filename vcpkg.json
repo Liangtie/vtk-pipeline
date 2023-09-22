@@ -1,0 +1,13 @@
+{
+  "name": "vtk-pipeline",
+  "version-semver": "0.1.0",
+  "dependencies": [
+    {
+      "name": "fmt"
+    },
+    {
+      "name": "nlohmann-json"
+    }
+  ],
+  "default-features": []
+}
