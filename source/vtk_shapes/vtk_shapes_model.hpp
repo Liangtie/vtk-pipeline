@@ -3,11 +3,12 @@
 
 #include <qabstractitemmodel.h>
 #include <qobject.h>
-class VtkShapeMode : public QAbstractItemModel
+
+class VtkShapeModel : public QAbstractItemModel
 {
   public:
-    VtkShapeMode(QObject* parent = nullptr);
-    ~VtkShapeMode() override;
+    VtkShapeModel(QObject* parent = nullptr);
+    ~VtkShapeModel() override;
 };
 
 #endif

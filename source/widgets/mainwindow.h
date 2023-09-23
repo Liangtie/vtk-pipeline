@@ -34,8 +34,9 @@ class MainWindow : public FramelessMainWindow
     void resizeEvent(QResizeEvent* event) override;
 
   private:
-    Ui::MainWindow* ui;
+    void onWindowsSizeChanged();
 
+    Ui::MainWindow* ui;
     QAbstractItemModel* _bottom_left_menu_model;
     QAbstractItemModel* _vtk_shapes_model;
     std::shared_ptr<DataFlowGraphModel> _dataFlowGraphModel;

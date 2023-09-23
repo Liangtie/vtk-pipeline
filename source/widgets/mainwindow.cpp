@@ -25,6 +25,7 @@
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
+#include "widgets/mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : FramelessMainWindow(parent)
@@ -38,7 +39,7 @@ MainWindow::MainWindow(QWidget* parent)
         using namespace wangwenx190::FramelessHelper;
         auto helper = FRAMELESSHELPER_PREPEND_NAMESPACE(
             FramelessWidgetsHelper)::get(this);
-        helper->setTitleBarWidget(ui->menu_top);
+        // helper->setTitleBarWidget(ui->menu_top);
 
         helper->setSystemButton(ui->btn_close, Global::SystemButtonType::Close);
         helper->setSystemButton(ui->btn_min,
@@ -65,6 +66,10 @@ MainWindow::MainWindow(QWidget* parent)
                     else
                         showMaximized();
                 });
+        connect(helper,
+                &FramelessWidgetsHelper::windowChanged,
+                this,
+                &MainWindow::onWindowsSizeChanged);
     }
 
     // SECTION - Setup menus
@@ -133,10 +138,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
+    FramelessMainWindow::resizeEvent(event);
+    onWindowsSizeChanged();
+}
+
+void MainWindow::onWindowsSizeChanged()
+{
     static const QIcon icon_original(":/style/icon/show_original_size.svg");
     static const QIcon icon_max(":/style/icon/show_max_size.svg");
 
-    FramelessMainWindow::resizeEvent(event);
     if (isMaximized())
         ui->btn_max->setIcon(icon_original);
     else
