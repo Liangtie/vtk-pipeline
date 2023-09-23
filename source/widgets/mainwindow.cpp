@@ -1,3 +1,4 @@
+#include <QFileDialog>
 #include <memory>
 
 #include "mainwindow.h"
@@ -30,9 +31,6 @@ MainWindow::MainWindow(QWidget* parent)
 {
     ui->setupUi(this);
 
-    static const auto setupFlatStyle = [](QObject* obj)
-    { obj->setProperty("flat", true); };
-
     // SECTION - Frameless
     {
         using namespace wangwenx190::FramelessHelper;
@@ -45,6 +43,9 @@ MainWindow::MainWindow(QWidget* parent)
                                 Global::SystemButtonType::Minimize);
         helper->setSystemButton(ui->btn_max,
                                 Global::SystemButtonType::Maximize);
+        helper->setSystemButton(ui->btn_open, Global::SystemButtonType::Help);
+        helper->setSystemButton(ui->btn_save,
+                                Global::SystemButtonType::WindowIcon);
 
         connect(
             ui->btn_close, &QAbstractButton::clicked, this, &QWidget::close);
@@ -88,17 +89,27 @@ MainWindow::MainWindow(QWidget* parent)
         _vtkPipeLineScene = new VtkPipelineScene(*_dataFlowGraphModel);
         _vtkPipeLineView = new VtkPipelineView(_vtkPipeLineScene, this);
         ui->lay_right->addWidget(_vtkPipeLineView);
-        setupFlatStyle(_vtkPipeLineView);
     }
 
     // SECTION - Setup style
     {
+        static const auto setupFlatStyle = [](QObject* obj)
+        { obj->setProperty("flat", true); };
         for (const auto& btn : findChildren<QAbstractButton*>())
             setupFlatStyle(btn);
 
         for (const auto& view : findChildren<QAbstractItemView*>())
             setupFlatStyle(view);
+        setupFlatStyle(_vtkPipeLineView);
     }
+    connect(ui->btn_open,
+            &QAbstractButton::clicked,
+            _vtkPipeLineScene,
+            &VtkPipelineScene::load);
+    connect(ui->btn_save,
+            &QAbstractButton::clicked,
+            _vtkPipeLineScene,
+            &VtkPipelineScene::save);
 }
 
 MainWindow::~MainWindow()
