@@ -481,9 +481,7 @@ QTreeView[branch="true"]::branch:open:has-children {
   border-image: url(:/style/qss/flatwhite/branch_close.png);
 }
 
-QTableView::item:selected,
-QListView::item:selected,
-QTreeView::item:selected {
+QAbstractItemView::item:selected {
   color: #57595b;
   background: qlineargradient(
     spread: pad,
@@ -496,9 +494,7 @@ QTreeView::item:selected {
   );
 }
 
-QTableView::item:hover,
-QListView::item:hover,
-QTreeView::item:hover {
+QAbstractItemView::item:hover {
   color: #57595b;
   background: qlineargradient(
     spread: pad,
@@ -511,9 +507,7 @@ QTreeView::item:hover {
   );
 }
 
-QTableView::item,
-QListView::item,
-QTreeView::item {
+QAbstractItemView::item {
   padding: 1px;
   margin: 0px;
   height: 36px;

@@ -169,7 +169,7 @@
        </property>
        <item>
         <widget class="QWidget" name="widget_left" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="lay_left">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -186,7 +186,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QTreeView" name="vtk_shapes_view"/>
+           <widget class="VtkShapesView" name="vtk_shapes_view"/>
           </item>
           <item>
            <widget class="Line" name="line">
@@ -196,7 +196,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QListView" name="bottom_left_view">
+           <widget class="BottomLeftMenuView" name="bottom_left_view">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -246,6 +246,18 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BottomLeftMenuView</class>
+   <extends>QListView</extends>
+   <header>widgets/bottom_left_menu/bottom_left_menu_view.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>VtkShapesView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/vtk_shapes/vtk_shapes_view.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../vtk-pipeline.qrc"/>
  </resources>

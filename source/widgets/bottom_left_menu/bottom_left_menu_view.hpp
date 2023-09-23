@@ -7,9 +7,9 @@
 class BottomLeftMenuView : public QListView
 {
   public:
-    BottomLeftMenuView(int item_size = 0, QWidget* parent = nullptr);
+    BottomLeftMenuView(QWidget* parent = nullptr, int item_size = 0);
     ~BottomLeftMenuView() override;
-    // [[nodiscard]] QSize sizeHint() const override;
+    [[nodiscard]] QSize sizeHint() const override;
 
   private:
     const int _item_size;
