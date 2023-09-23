@@ -27,5 +27,6 @@
         <file>style/icon/close.svg</file>
         <file>style/icon/about.svg</file>
         <file>style/icon/settings.svg</file>
+        <file>style/icon/VTK.png</file>
     </qresource>
 </RCC>

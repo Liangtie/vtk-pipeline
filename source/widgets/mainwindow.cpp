@@ -5,7 +5,9 @@
 
 #include <FramelessHelper/Widgets/framelesswidgetshelper.h>
 #include <qabstractbutton.h>
+#include <qabstractitemmodel.h>
 #include <qabstractitemview.h>
+#include <qapplication.h>
 #include <qframe.h>
 #include <qicon.h>
 #include <qlayoutitem.h>
@@ -110,6 +112,18 @@ MainWindow::MainWindow(QWidget* parent)
             &QAbstractButton::clicked,
             _vtkPipeLineScene,
             &VtkPipelineScene::save);
+    connect(ui->bottom_left_view,
+            &QAbstractItemView::clicked,
+            [](QModelIndex const& idx)
+            {
+                switch (idx.row()) {
+                    case BottomLeftMenuModel::ROWS::ABOUT:
+                        QApplication::aboutQt();
+                        break;
+                    case BottomLeftMenuModel::ROWS::SETTINGS:
+                        break;
+                }
+            });
 }
 
 MainWindow::~MainWindow()
@@ -119,9 +133,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
+    static const QIcon icon_original(":/style/icon/show_original_size.svg");
+    static const QIcon icon_max(":/style/icon/show_max_size.svg");
+
     FramelessMainWindow::resizeEvent(event);
     if (isMaximized())
-        ui->btn_max->setIcon(QIcon(":/style/icon/show_original_size.svg"));
+        ui->btn_max->setIcon(icon_original);
     else
-        ui->btn_max->setIcon(QIcon(":/style/icon/show_max_size.svg"));
+        ui->btn_max->setIcon(icon_max);
 }
