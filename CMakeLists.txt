@@ -16,21 +16,11 @@ include(variables)
 include(link_qt)
 include(link_vtk)
 include(FetchContent)
+include(GNUInstallDirs)
 
-FetchContent_Declare(
-  nodeeditor
-  GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
-  GIT_TAG        3.0.10
-)
-
-FetchContent_Declare(
-  framelesshelper
-  GIT_REPOSITORY https://github.com/wangwenx190/framelesshelper.git
-  GIT_TAG        2.4.2
-)
+add_subdirectory(3rdparty)
 
 
-FetchContent_MakeAvailable(nodeeditor framelesshelper)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()

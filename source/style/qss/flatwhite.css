@@ -929,7 +929,7 @@ QWidget[flat="true"] {
   border: none;
 }
 
-QAbstractButton[] QToolButton#btn_close:hover {
+QToolButton#btn_close:hover {
   background: rgb(251, 155, 155);
 }
 

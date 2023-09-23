@@ -2,10 +2,20 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <memory>
 
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
 #include <qabstractitemmodel.h>
 #include <qabstractitemview.h>
+
+namespace QtNodes
+{
+class DataFlowGraphModel;
+
+}  // namespace QtNodes
+using QtNodes::DataFlowGraphModel;
+class VtkPipelineScene;
+class VtkPipelineView;
 
 namespace Ui
 {
@@ -20,12 +30,17 @@ class MainWindow : public FramelessMainWindow
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow() override;
 
+  protected:
+    void resizeEvent(QResizeEvent* event) override;
+
   private:
     Ui::MainWindow* ui;
 
     QAbstractItemModel* _bottom_left_menu_model;
     QAbstractItemModel* _vtk_shapes_model;
-
+    std::shared_ptr<DataFlowGraphModel> _dataFlowGraphModel;
+    VtkPipelineScene* _vtkPipeLineScene;
+    VtkPipelineView* _vtkPipeLineView;
 };
 
 #endif  // MAINWINDOW_H

@@ -18,3 +18,8 @@ QSize BottomLeftMenuView::sizeHint() const
         (_item_size < model()->rowCount() ? _item_size : model()->rowCount())
             * sizeHintForRow(0)};
 }
+
+void BottomLeftMenuView::wheelEvent(QWheelEvent* e)
+{
+    e->ignore();
+}

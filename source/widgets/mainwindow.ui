@@ -255,7 +255,7 @@
   <customwidget>
    <class>VtkShapesView</class>
    <extends>QTreeView</extends>
-   <header>widgets/vtk_shapes/vtk_shapes_view.hpp</header>
+   <header>vtk_shapes/vtk_shapes_view.hpp</header>
   </customwidget>
  </customwidgets>
  <resources>
