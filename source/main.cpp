@@ -16,6 +16,6 @@ auto main(int argc, char** argv) -> int
         ([]
          { return HelperUi::readFileContent(":/style/qss/flatwhite.css"); })());
     MainWindow w;
-    w.show();
+    w.showMaximized();
     return app.exec();
 }

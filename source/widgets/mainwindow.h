@@ -4,6 +4,8 @@
 #include <QMainWindow>
 
 #include <FramelessHelper/Widgets/framelessmainwindow.h>
+#include <qabstractitemmodel.h>
+#include <qabstractitemview.h>
 
 namespace Ui
 {
@@ -16,10 +18,14 @@ class MainWindow : public FramelessMainWindow
 
   public:
     explicit MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
   private:
     Ui::MainWindow* ui;
+
+    QAbstractItemModel* _bottom_left_menu_model;
+    QAbstractItemModel* _vtk_shapes_model;
+
 };
 
 #endif  // MAINWINDOW_H

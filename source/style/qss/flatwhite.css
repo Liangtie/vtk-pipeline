@@ -516,6 +516,11 @@ QListView::item,
 QTreeView::item {
   padding: 1px;
   margin: 0px;
+  height: 36px;
+}
+
+QAbstractItemView {
+  icon-size: 16px;
 }
 
 QHeaderView::section,
@@ -923,74 +928,15 @@ QToolButton:checked {
   background-color: transparent;
 }
 
-/* ads--CTitleBarButton {
-  background-color: rgb(240, 240, 240);
-  border: none;
-}
+/* BEGIN THE PROJECT */
 
-ads--CDockWidgetTab,
-ads--CDockWidgetTab:selected,
-ads--CDockWidgetTab:checked,
-ads--CDockWidgetTab:focus,
-ads--CElidingLabel,
-ads--CDockWidget,
-ads--CDockWidgetTab>QLabel {
-  background-color: rgb(240, 240, 240);
-  border: none;
-} */
-
-QToolButton#btn_search_project,
-QToolButton#btnSortOrder,
-QToolButton#btnAddAssert {
+QWidget[flat="true"] {
   background-color: transparent;
   border: none;
 }
 
-QLabel#labelCurrentProject {
-  padding-left: 6px;
+QAbstractButton[] QToolButton#btn_close:hover {
+  background: rgb(251, 155, 155);
 }
 
-SARibbonBar,
-QStatusBar#MainWindowStatusBar {
-  background-color: rgb(25, 118, 210);
-}
-
-/*SARibbonApplicationButton*/
-SARibbonApplicationButton {
-  color: white;
-  border: 1px solid #416abd;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  background-color: transparent;
-}
-
-SARibbonApplicationButton::hover {
-  background-color: rgb(14, 84, 164);
-}
-
-SARibbonApplicationButton::pressed {
-  background-color: rgb(14, 84, 164);
-}
-
-SARibbonApplicationButton:focus {
-  outline: none;
-}
-
-QToolButton#btnNewProject,
-QToolButton#btnImportFolder {
-  color: #2394ff;
-}
-
-QLabel[selected="true"] {
-  background: qlineargradient(
-    spread: pad,
-    x1: 0,
-    y1: 0,
-    x2: 0,
-    y2: 1,
-    stop: 0 #e4e4e4,
-    stop: 1 #e4e4e4
-  );
-}
-
-/* BEGIN THE MAIN */
+/* END The PROJECT */
