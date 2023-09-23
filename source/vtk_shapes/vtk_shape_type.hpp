@@ -3,10 +3,11 @@
 
 enum class VtkShapeType
 {
-    Source,
+    DataSet,
     Mapper,
     Fitter,
     Process,
+    Output,
 };
 
 #endif

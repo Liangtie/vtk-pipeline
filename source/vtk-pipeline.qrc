@@ -28,5 +28,10 @@
         <file>style/icon/about.svg</file>
         <file>style/icon/settings.svg</file>
         <file>style/icon/VTK.png</file>
+        <file>style/icon/filter.png</file>
+        <file>style/icon/input.png</file>
+        <file>style/icon/mapper.png</file>
+        <file>style/icon/output.png</file>
+        <file>style/icon/process.png</file>
     </qresource>
 </RCC>
