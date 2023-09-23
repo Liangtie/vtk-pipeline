@@ -8,7 +8,7 @@ else()
 endif()
 
 
-file(GLOB_RECURSE VTK_PIPELINE_SRC *.cpp )
+file(GLOB_RECURSE VTK_PIPELINE_SRC *.h *.cpp  *.ui)
 
 qt_add_resources(
     VTK_PIPELINE_RES
@@ -32,12 +32,15 @@ endif ()
 target_link_libraries(vtk_pipeline PRIVATE
     ${QT_LIBRARIES}
     ${VTK_LIBRARIES}
+    FramelessHelper::Core
+    FramelessHelper::Widgets
+    QtNodes::QtNodes
 )
 
 target_include_directories(
-    vtk_pipeline ${warning_guard}
-    PUBLIC
-    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>"
+    vtk_pipeline
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
 )
 
 

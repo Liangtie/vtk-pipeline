@@ -40,10 +40,7 @@ else()
     set(CMAKE_AUTOUIC ON)
 endif()
 
-
-
 add_subdirectory(source)
-
 
 # ---- Developer mode ----
 
