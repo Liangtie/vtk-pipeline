@@ -64,7 +64,6 @@ class vtkImageViewerDelegate
     QWidget* embeddedWidget() override;
 
   public:
-    void setText(double number);
 
   private Q_SLOTS:
 

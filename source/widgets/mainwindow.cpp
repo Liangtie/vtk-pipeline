@@ -22,13 +22,14 @@
 
 #include "constraint/item_in_view.hpp"
 #include "ui_mainwindow.h"
+#include "vtk_output/vtkImageViewerDelegate.hpp"
 #include "vtk_pipeline/data_view_light_style.hpp"
-#include "vtk_pipeline/vtk_pipeline_model.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
-#include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_shapes/vtk_shape_category.hpp"
 #include "vtk_shapes/vtk_shapes_model.hpp"
+#include "vtk_source/vtkFilePathSelector.hpp"
+#include "vtk_source/vtkPNGReaderDelegate.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
 #include "widgets/mainwindow.h"
@@ -96,18 +97,8 @@ MainWindow::MainWindow(QWidget* parent)
             QString {},
             QIcon(":/style/icon/input.png"),
             std::vector<std::shared_ptr<VtkBaseShape>> {
-
-                // std::make_shared<VtkShape>(VtkShapeType::DataSet,
-                //                            QString(vtkImageData::id)),
-                // std::make_shared<VtkShape>(VtkShapeType::DataSet,
-                //                            QString(vtkPolyData::id)),
-                // std::make_shared<VtkShape>(VtkShapeType::DataSet,
-                //                            QString(vtkRectilinearGrid::id)),
-                // std::make_shared<VtkShape>(VtkShapeType::DataSet,
-                //                            QString(vtkStructuredGrid::id)),
-                // std::make_shared<VtkShape>(VtkShapeType::DataSet,
-                //                            QString(vtkUnstructuredGrid::id)),
-
+                std::make_shared<vtkFilePathSelector>(),
+                std::make_shared<vtkPNGReaderDelegate>(),
             }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
@@ -132,7 +123,10 @@ MainWindow::MainWindow(QWidget* parent)
             "Output",
             QString {},
             QIcon(":/style/icon/output.png"),
-            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+            std::vector<std::shared_ptr<VtkBaseShape>> {
+                std::make_shared<vtkImageViewerDelegate>(),
+
+            }));
 
         _vtk_shapes_model =
             new VtkShapeModel(std::move(shapes), ui->vtk_shapes_view);
@@ -169,7 +163,9 @@ MainWindow::MainWindow(QWidget* parent)
 
         std::shared_ptr<NodeDelegateModelRegistry> registry = ([]{
             auto ret = std::make_shared<NodeDelegateModelRegistry>();
-            ret->registerModel<MyDataModel>();
+            ret->registerModel<vtkFilePathSelector>("Dataset");
+            ret->registerModel<vtkPNGReaderDelegate>("Dataset");
+            ret->registerModel<vtkImageViewerDelegate>("Output");
             return ret;
         })();
 

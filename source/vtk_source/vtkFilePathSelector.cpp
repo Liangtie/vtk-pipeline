@@ -8,19 +8,23 @@
 
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/FilePathData.hpp"
+#include "vtk_source/vtkfilepathselectorwidget.h"
+#include "vtkfilepathselectorwidget.h"
 
 vtkFilePathSelector::vtkFilePathSelector()
     : VtkShape(class_id)
-    , _text(std::make_shared<FilePathData>(""))
+    , _file_path(std::make_shared<FilePathData>(QString {}))
     , _lineEdit {nullptr}
 {
 }
+
+vtkFilePathSelector::~vtkFilePathSelector() {}
 
 QJsonObject vtkFilePathSelector::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
 
-    modelJson["file_path"] = _text->filePath();
+    modelJson["file_path"] = _file_path->filePath();
 
     return modelJson;
 }
@@ -33,7 +37,7 @@ void vtkFilePathSelector::load(QJsonObject const& p)
         QString str = v.toString();
 
         if (QFile::exists(str)) {
-            _text = std::make_shared<FilePathData>(str);
+            _file_path = std::make_shared<FilePathData>(str);
 
             if (_lineEdit)
                 _lineEdit->setText(str);
@@ -63,7 +67,7 @@ unsigned int vtkFilePathSelector::nPorts(PortType portType) const
 void vtkFilePathSelector::onTextEdited(QString const& str)
 {
     if (QFile::exists(str)) {
-        _text = std::make_shared<FilePathData>(str);
+        _file_path = std::make_shared<FilePathData>(str);
         Q_EMIT dataUpdated(0);
     } else {
         Q_EMIT dataInvalidated(0);
@@ -77,33 +81,33 @@ NodeDataType vtkFilePathSelector::dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData> vtkFilePathSelector::outData(PortIndex)
 {
-    return _text;
+    return _file_path;
 }
 
 QWidget* vtkFilePathSelector::embeddedWidget()
 {
     if (!_lineEdit) {
-        _lineEdit = new QLineEdit();
+        _lineEdit = new VtkFilePathSelectorWidget();
 
         _lineEdit->setMaximumSize(_lineEdit->sizeHint());
 
         connect(_lineEdit,
-                &QLineEdit::textChanged,
+                &VtkFilePathSelectorWidget::filePathSelected,
                 this,
                 &vtkFilePathSelector::onTextEdited);
 
-        _lineEdit->setText(_text->filePath());
+        _lineEdit->setText(_file_path->filePath());
     }
 
     return _lineEdit;
 }
 
-void vtkFilePathSelector::setText(double n)
+void vtkFilePathSelector::setText(QString str)
 {
-    _text = std::make_shared<FilePathData>(n);
+    _file_path = std::make_shared<FilePathData>(str);
 
     Q_EMIT dataUpdated(0);
 
     if (_lineEdit)
-        _lineEdit->setText(_text->filePath());
+        _lineEdit->setText(_file_path->filePath());
 }

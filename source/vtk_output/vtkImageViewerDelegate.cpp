@@ -10,6 +10,7 @@
 
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/FilePathData.hpp"
+#include "vtk_source/VtkAlgorithmOutputData.hpp"
 
 vtkImageViewerDelegate::vtkImageViewerDelegate()
     : VtkShape(class_id)
@@ -60,7 +61,7 @@ void vtkImageViewerDelegate::onTextEdited(QString const& str)
 
 NodeDataType vtkImageViewerDelegate::dataType(PortType, PortIndex) const
 {
-    return FilePathData().type();
+    return VtkAlgorithmOutputData().type();
 }
 
 std::shared_ptr<NodeData> vtkImageViewerDelegate::outData(PortIndex)
@@ -84,14 +85,4 @@ QWidget* vtkImageViewerDelegate::embeddedWidget()
     }
 
     return _lineEdit;
-}
-
-void vtkImageViewerDelegate::setText(double n)
-{
-    _text = std::make_shared<FilePathData>(n);
-
-    Q_EMIT dataUpdated(0);
-
-    if (_lineEdit)
-        _lineEdit->setText(_text->filePath());
 }

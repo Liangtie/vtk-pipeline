@@ -800,14 +800,6 @@ QLabel#labelExprEditorTitle {
 
 /* BEGIN THE AST EDITOR */
 
-QLineEdit#editSearchOption,
-QToolButton#btnSearch {
-  background: #ffffff;
-  border: none;
-  border-radius: 0px;
-  padding: 0px;
-}
-
 QWidget[plugin-content="true"] {
   border: none;
   border-radius: 0px;
@@ -922,8 +914,7 @@ QWidget[flat="true"] {
 QToolButton#btn_close:hover {
   background: rgb(251, 155, 155);
 }
-
-QLineEdit#searchWidget {
+QLineEdit {
   background: #ffffff;
   border-color: #2f7cb2;
   border-style: solid;
@@ -931,6 +922,9 @@ QLineEdit#searchWidget {
   border-right-width: 0px;
   border-bottom-width: 3px;
   border-left-width: 0px;
+}
+
+QLineEdit#searchWidget {
   height: 36px;
 }
 

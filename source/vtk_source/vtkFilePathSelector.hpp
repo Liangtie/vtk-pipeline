@@ -15,7 +15,7 @@ using QtNodes::NodeDelegateModel;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
 
-class QLineEdit;
+class VtkFilePathSelectorWidget;
 
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
@@ -34,7 +34,7 @@ class vtkFilePathSelector
 
     vtkFilePathSelector();
 
-    virtual ~vtkFilePathSelector() {}
+    ~vtkFilePathSelector() override;
 
   public:
     [[nodiscard]] QString caption() const override
@@ -64,14 +64,14 @@ class vtkFilePathSelector
     QWidget* embeddedWidget() override;
 
   public:
-    void setText(double number);
+    void setText(QString);
 
   private Q_SLOTS:
 
     void onTextEdited(QString const& string);
 
   private:
-    std::shared_ptr<FilePathData> _text;
+    std::shared_ptr<FilePathData> _file_path;
 
-    QLineEdit* _lineEdit;
+    VtkFilePathSelectorWidget* _lineEdit;
 };
