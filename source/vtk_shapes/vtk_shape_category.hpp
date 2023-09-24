@@ -11,15 +11,15 @@ class VtkShapeCategory : public VtkBaseShape
 {
   public:
     VtkShapeCategory(VtkShapeType type,
-                     QString title,
-                     QIcon icon,
-                     std::vector<std::shared_ptr<VtkBaseShape>> shapes);
+                     QString description = {},
+                     QIcon icon = {},
+                     std::vector<std::shared_ptr<VtkBaseShape>> shapes = {});
 
     ~VtkShapeCategory() override;
 
     [[nodiscard]] auto type() const -> VtkShapeType override;
 
-    [[nodiscard]] auto title() const -> QString override;
+    [[nodiscard]] auto description() const -> QString override;
 
     [[nodiscard]] auto icon() const -> QIcon override;
 
@@ -38,7 +38,7 @@ class VtkShapeCategory : public VtkBaseShape
 
   private:
     VtkShapeType const _type;
-    QString const _title;
+    QString const _description;
     QIcon const _icon;
     std::vector<std::shared_ptr<VtkBaseShape>> const _shapes;
 };

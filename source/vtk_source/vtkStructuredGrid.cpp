@@ -1,1 +1,0 @@
-#include "vtkStructuredGrid.hpp"

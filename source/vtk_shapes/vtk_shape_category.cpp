@@ -1,12 +1,14 @@
+#include <utility>
+
 #include "vtk_shape_category.hpp"
 
 VtkShapeCategory::VtkShapeCategory(
     VtkShapeType type,
-    QString title,
+    QString description,
     QIcon icon,
     std::vector<std::shared_ptr<VtkBaseShape>> shapes)
-    : _type(type)
-    , _title(std::move(title))
+    : _type(std::move(type))
+    , _description(std::move(description))
     , _icon(std::move(icon))
     , _shapes(std::move(shapes))
 {
@@ -19,9 +21,9 @@ auto VtkShapeCategory::type() const -> VtkShapeType
     return _type;
 }
 
-auto VtkShapeCategory::title() const -> QString
+auto VtkShapeCategory::description() const -> QString
 {
-    return _title;
+    return _description;
 }
 
 auto VtkShapeCategory::icon() const -> QIcon

@@ -1,10 +1,12 @@
+#include <utility>
+
 #include "vtk_shape.hpp"
 
 #include <qtpreprocessorsupport.h>
 
-VtkShape::VtkShape(VtkShapeType type, QString title, QIcon icon)
-    : _type(type)
-    , _title(std::move(title))
+VtkShape::VtkShape(VtkShapeType type, QString description, QIcon icon)
+    : _type(std::move(type))
+    , _description(std::move(description))
     , _icon(std::move(icon))
 {
 }
@@ -16,9 +18,9 @@ auto VtkShape::type() const -> VtkShapeType
     return _type;
 }
 
-auto VtkShape::title() const -> QString
+auto VtkShape::description() const -> QString
 {
-    return _title;
+    return _description;
 }
 
 auto VtkShape::icon() const -> QIcon

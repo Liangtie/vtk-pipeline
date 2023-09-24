@@ -51,7 +51,7 @@ QVariant VtkShapeModel::data(const QModelIndex& index, int role) const
     const auto base_shape = static_cast<VtkBaseShape*>(index.internalPointer());
     switch (role) {
         case Qt::DisplayRole:
-            return base_shape->title();
+            return base_shape->type();
         case Qt::DecorationRole:
             return base_shape->icon();
     }

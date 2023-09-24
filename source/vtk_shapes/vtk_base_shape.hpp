@@ -14,7 +14,7 @@ class VtkBaseShape
 
     [[nodiscard]] virtual auto type() const -> VtkShapeType = 0;
 
-    [[nodiscard]] virtual auto title() const -> QString = 0;
+    [[nodiscard]] virtual auto description() const -> QString = 0;
 
     [[nodiscard]] virtual auto icon() const -> QIcon = 0;
 
