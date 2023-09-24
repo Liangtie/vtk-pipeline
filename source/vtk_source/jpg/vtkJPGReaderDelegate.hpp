@@ -7,19 +7,19 @@
 #include <QtNodes/NodeDelegateModel>
 #include <QtNodes/NodeDelegateModelRegistry>
 #include <QtWidgets/QLabel>
-
-#include "vtkPNGReader.h"
+#include <vtkJPEGReader.h>
+#include <vtkNew.h>
 #include "vtk_source/GenericSourceReader.hpp"
 
-class vtkPNGReaderDelegate : public GenericSourceReader
+class vtkJPGReaderDelegate : public GenericSourceReader
 {
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkPNGReader";
+    static constexpr auto class_id = "vtkJPGReader";
 
-    vtkPNGReaderDelegate();
-    ~vtkPNGReaderDelegate() override;
+    vtkJPGReaderDelegate();
+    ~vtkJPGReaderDelegate() override;
 
   public:
     [[nodiscard]] auto type() const -> VtkShapeType override
@@ -29,7 +29,7 @@ class vtkPNGReaderDelegate : public GenericSourceReader
 
     [[nodiscard]] QString caption() const override
     {
-        return {"VTK PNG Source"};
+        return {"VTK JPG Source"};
     }
 
     [[nodiscard]] QString name() const override { return class_id; }
@@ -53,5 +53,5 @@ class vtkPNGReaderDelegate : public GenericSourceReader
     QWidget* embeddedWidget() override { return {}; }
 
   private:
-    vtkNew<vtkPNGReader> _reader;
+    vtkNew<vtkJPEGReader> _reader;
 };

@@ -148,7 +148,7 @@ void DataFlowGraphicsScene::save() const
 {
     QString fileName = QFileDialog::getSaveFileName(nullptr,
                                                     tr("Save Flow Scene"),
-                                                    QDir::homePath(),
+                                                    "",
                                                     tr("Flow Scene Files (*.flow)"));
 
     if (!fileName.isEmpty()) {
@@ -166,7 +166,7 @@ void DataFlowGraphicsScene::load()
 {
     QString fileName = QFileDialog::getOpenFileName(nullptr,
                                                     tr("Open Flow Scene"),
-                                                    QDir::homePath(),
+                                                    "",
                                                     tr("Flow Scene Files (*.flow)"));
 
     if (!QFileInfo::exists(fileName))

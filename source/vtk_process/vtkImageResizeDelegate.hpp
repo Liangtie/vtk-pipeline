@@ -2,9 +2,8 @@
 
 #include <iostream>
 
-#include <QVTKOpenGLNativeWidget.h>
-#include <vtkGenericOpenGLRenderWindow.h>
-#include <vtkImageViewer.h>
+#include <vtkImageResize.h>
+#include <vtkNew.h>
 
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
@@ -19,31 +18,31 @@ using QtNodes::NodeDelegateModel;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
 
-class EmbeddedQVTKRenderWidget;
+class VtkFilePathSelectorWidget;
 
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
-class vtkImageViewerDelegate
+class vtkImageResizeDelegate
     : public NodeDelegateModel
     , public VtkShape
 {
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkImageViewer";
+    static constexpr auto class_id = "vtkImageResize";
     [[nodiscard]] auto type() const -> VtkShapeType override
     {
         return class_id;
     }
 
-    vtkImageViewerDelegate();
+    vtkImageResizeDelegate();
 
-    virtual ~vtkImageViewerDelegate() = default;
+    ~vtkImageResizeDelegate() override;
 
   public:
     [[nodiscard]] QString caption() const override
     {
-        return QStringLiteral("VTK Image Viewer");
+        return QStringLiteral("File Path Source");
     }
 
     [[nodiscard]] bool captionVisible() const override { return false; }
@@ -61,14 +60,12 @@ class vtkImageViewerDelegate
     [[nodiscard]] NodeDataType dataType(PortType portType,
                                         PortIndex portIndex) const override;
 
+    std::shared_ptr<NodeData> outData(PortIndex port) override;
+
     void setInData(std::shared_ptr<NodeData>, PortIndex) override;
-    std::shared_ptr<NodeData> outData(PortIndex const) override { return {}; }
 
     QWidget* embeddedWidget() override;
 
   private:
-    std::shared_ptr<FilePathData> _text;
-    vtkNew<vtkImageViewer> _image_view;
-    vtkNew<vtkGenericOpenGLRenderWindow> _renWin;
-    EmbeddedQVTKRenderWidget* _vtk_widget;
+    vtkNew<vtkImageResize> _image_resize;
 };

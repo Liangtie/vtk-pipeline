@@ -1,6 +1,6 @@
 #include <memory>
 
-#include "vtkPNGReaderDelegate.hpp"
+#include "vtkJPGReaderDelegate.hpp"
 
 #include <qtpreprocessorsupport.h>
 
@@ -12,26 +12,26 @@
 #include "vtk_source/file_path/FilePathData.hpp"
 #include "vtk_source/vtkAlgorithmOutputData.hpp"
 
-vtkPNGReaderDelegate::vtkPNGReaderDelegate()
+vtkJPGReaderDelegate::vtkJPGReaderDelegate()
     : GenericSourceReader(class_id)
     , _reader({})
 {
 }
 
-vtkPNGReaderDelegate::~vtkPNGReaderDelegate() {}
+vtkJPGReaderDelegate::~vtkJPGReaderDelegate() {}
 
-QJsonObject vtkPNGReaderDelegate::save() const
+QJsonObject vtkJPGReaderDelegate::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
 
-    modelJson["png_path"] = _reader->GetFileName();
+    modelJson["jpg"] = _reader->GetFileName();
 
     return modelJson;
 }
 
-void vtkPNGReaderDelegate::load(QJsonObject const& p)
+void vtkJPGReaderDelegate::load(QJsonObject const& p)
 {
-    QJsonValue v = p["png_path"];
+    QJsonValue v = p["jpg"];
 
     if (!v.isUndefined()) {
         QString str = v.toString();
@@ -44,7 +44,7 @@ void vtkPNGReaderDelegate::load(QJsonObject const& p)
     }
 }
 
-NodeDataType vtkPNGReaderDelegate::dataType(PortType const t,
+NodeDataType vtkJPGReaderDelegate::dataType(PortType const t,
                                             PortIndex const) const
 {
     switch (t) {
@@ -59,13 +59,13 @@ NodeDataType vtkPNGReaderDelegate::dataType(PortType const t,
     return {};
 }
 
-std::shared_ptr<NodeData> vtkPNGReaderDelegate::outData(PortIndex idx)
+std::shared_ptr<NodeData> vtkJPGReaderDelegate::outData(PortIndex idx)
 {
     Q_UNUSED(idx)
     return std::make_shared<VtkAlgorithmOutputData>(_reader->GetOutputPort());
 }
 
-void vtkPNGReaderDelegate::setInData(std::shared_ptr<NodeData> data,
+void vtkJPGReaderDelegate::setInData(std::shared_ptr<NodeData> data,
                                      PortIndex const portIndex)
 {
     Q_UNUSED(portIndex)

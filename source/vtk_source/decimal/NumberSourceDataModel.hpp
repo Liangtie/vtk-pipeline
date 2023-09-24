@@ -32,11 +32,11 @@ class NumberSourceDataModel
     virtual ~NumberSourceDataModel() {}
 
   public:
-    QString caption() const override { return QStringLiteral("Number Source"); }
+    QString caption() const override { return QStringLiteral("decimal"); }
 
     bool captionVisible() const override { return false; }
 
-    QString name() const override { return QStringLiteral("NumberSource"); }
+    QString name() const override { return QStringLiteral("decimal"); }
 
   public:
     QJsonObject save() const override;

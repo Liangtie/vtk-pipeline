@@ -1,6 +1,8 @@
 #ifndef DB2B934B_C242_4928_B6C2_25FCC079AB28
 #define DB2B934B_C242_4928_B6C2_25FCC079AB28
 
+#include <utility>
+
 #include <QtNodes/NodeData>
 
 #include "vtk_shapes/vtk_shape.hpp"
@@ -18,6 +20,11 @@ class DecimalData : public NodeData
         : DecimalData(0.0)
     {
     }
+    DecimalData(QString name)
+        : _number(0.0)
+        , _name(std::move(name))
+    {
+    }
 
     DecimalData(double const number)
         : _number(number)
@@ -26,7 +33,7 @@ class DecimalData : public NodeData
 
     NodeDataType type() const override
     {
-        return NodeDataType {"decimal", "decimal"};
+        return NodeDataType {"decimal", _name};
     }
 
     double number() const { return _number; }
@@ -35,6 +42,7 @@ class DecimalData : public NodeData
 
   private:
     double _number;
+    QString _name = "decimal";
 };
 
 #endif /* DB2B934B_C242_4928_B6C2_25FCC079AB28 */

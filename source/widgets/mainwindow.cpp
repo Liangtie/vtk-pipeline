@@ -26,10 +26,12 @@
 #include "vtk_pipeline/data_view_light_style.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
+#include "vtk_process/vtkImageResizeDelegate.hpp"
 #include "vtk_shapes/vtk_shape_category.hpp"
 #include "vtk_shapes/vtk_shapes_model.hpp"
 #include "vtk_source/decimal/NumberSourceDataModel.hpp"
 #include "vtk_source/file_path/vtkFilePathSelector.hpp"
+#include "vtk_source/jpg/vtkJPGReaderDelegate.hpp"
 #include "vtk_source/png/vtkPNGReaderDelegate.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
@@ -101,7 +103,9 @@ MainWindow::MainWindow(QWidget* parent)
             std::vector<std::shared_ptr<VtkBaseShape>> {
                 std::make_shared<NumberSourceDataModel>(),
                 std::make_shared<vtkFilePathSelector>(),
+                std::make_shared<vtkJPGReaderDelegate>(),
                 std::make_shared<vtkPNGReaderDelegate>(),
+
             }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
@@ -120,7 +124,10 @@ MainWindow::MainWindow(QWidget* parent)
             "Process",
             QString {},
             QIcon(":/style/icon/process.png"),
-            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+            std::vector<std::shared_ptr<VtkBaseShape>> {
+                std::make_shared<vtkImageResizeDelegate>(),
+
+            }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
             "Output",
@@ -170,8 +177,10 @@ MainWindow::MainWindow(QWidget* parent)
             auto ret = std::make_shared<NodeDelegateModelRegistry>();
             ret->registerModel<NumberSourceDataModel>("Dataset");
             ret->registerModel<vtkFilePathSelector>("Dataset");
+            ret->registerModel<vtkJPGReaderDelegate>("Dataset");
             ret->registerModel<vtkPNGReaderDelegate>("Dataset");
 
+            ret->registerModel<vtkImageResizeDelegate>("Process");
 
             ret->registerModel<vtkImageViewerDelegate>("Output");
             return ret;
