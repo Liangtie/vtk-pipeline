@@ -22,6 +22,7 @@
 
 #include "constraint/item_in_view.hpp"
 #include "ui_mainwindow.h"
+#include "vtk_output/gltf/vtkGLTFImporterDelegate.hpp"
 #include "vtk_output/image/vtkImageViewerDelegate.hpp"
 #include "vtk_pipeline/data_view_light_style.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
@@ -135,7 +136,7 @@ MainWindow::MainWindow(QWidget* parent)
             QIcon(":/style/icon/output.png"),
             std::vector<std::shared_ptr<VtkBaseShape>> {
                 std::make_shared<vtkImageViewerDelegate>(),
-
+                std::make_shared<vtkGLTFImporterDelegate>(),
             }));
 
         _vtk_shapes_model =
@@ -183,6 +184,8 @@ MainWindow::MainWindow(QWidget* parent)
             ret->registerModel<vtkImageResizeDelegate>("Process");
 
             ret->registerModel<vtkImageViewerDelegate>("Output");
+            ret->registerModel<vtkGLTFImporterDelegate>("Output");
+
             return ret;
         })();
 

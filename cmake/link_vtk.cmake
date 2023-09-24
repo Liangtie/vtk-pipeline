@@ -9,6 +9,49 @@ find_package(VTK
     InteractionStyle
     InteractionWidgets
     RenderingOpenGL2
+
+
+    ChartsCore
+    CommonColor
+    CommonCore
+    CommonDataModel
+    CommonSystem
+    CommonTransforms
+    DomainsChemistry
+    DomainsChemistryOpenGL2
+    FiltersCore
+    FiltersExtraction
+    FiltersGeneral
+    FiltersGeometry
+    FiltersModeling
+    FiltersSources
+    IOChemistry
+    IOExodus
+    IOExport
+    IOGeometry
+    IOImage
+    IOImport
+    IOLegacy
+    IOPLY
+    IOParallel
+    IOParallelXML
+    IOXML
+    ImagingCore
+    ImagingSources
+    InteractionImage
+    InteractionStyle
+    RenderingAnnotation
+    RenderingContext2D
+    RenderingContextOpenGL2
+    RenderingCore
+    RenderingFreeType
+    RenderingLOD
+    RenderingLabel
+    RenderingOpenGL2
+    ViewsContext2D
+    OPTIONAL_COMPONENTS
+    TestingRendering
+    QUIET
 )
 
 # target_link_libraries(XX PRIVATE ${VTK_LIBRARIES})
