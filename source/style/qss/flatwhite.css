@@ -471,16 +471,6 @@ QProgressBar:chunk {
   background-color: #b6b6b6;
 }
 
-QTreeView[branch="true"]::branch:closed:has-children {
-  margin: 4px;
-  border-image: url(:/style/qss/flatwhite/branch_open.png);
-}
-
-QTreeView[branch="true"]::branch:open:has-children {
-  margin: 4px;
-  border-image: url(:/style/qss/flatwhite/branch_close.png);
-}
-
 QAbstractItemView::item:selected {
   color: #57595b;
   background: qlineargradient(

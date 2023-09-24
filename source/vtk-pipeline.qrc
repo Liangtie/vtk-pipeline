@@ -19,14 +19,14 @@
         <file>style/qss/flatwhite/radiobutton_checked_disable.png</file>
         <file>style/qss/flatwhite/radiobutton_unchecked.png</file>
         <file>style/qss/flatwhite/radiobutton_unchecked_disable.png</file>
-        <file>style/icon/show_max_size.svg</file>
-        <file>style/icon/show_min_size.svg</file>
-        <file>style/icon/show_original_size.svg</file>
-        <file>style/icon/open.svg</file>
-        <file>style/icon/save.svg</file>
-        <file>style/icon/close.svg</file>
-        <file>style/icon/about.svg</file>
-        <file>style/icon/settings.svg</file>
+        <file>style/icon/show_max_size.png</file>
+        <file>style/icon/show_min_size.png</file>
+        <file>style/icon/show_original_size.png</file>
+        <file>style/icon/open.png</file>
+        <file>style/icon/save.png</file>
+        <file>style/icon/close.png</file>
+        <file>style/icon/about.png</file>
+        <file>style/icon/settings.png</file>
         <file>style/icon/VTK.png</file>
         <file>style/icon/filter.png</file>
         <file>style/icon/input.png</file>
