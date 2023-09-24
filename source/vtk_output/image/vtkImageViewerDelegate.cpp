@@ -1,4 +1,6 @@
 #include <QFile>
+#include <QGraphicsObject>
+#include <QGraphicsScene>
 #include <memory>
 
 #include "vtkImageViewerDelegate.hpp"
@@ -8,6 +10,7 @@
 #include <QtCore/QJsonValue>
 #include <QtGui/QDoubleValidator>
 
+#include "utils/helper_ui.h"
 #include "vtk_output/EmbeddedQVTKRenderWidget.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
@@ -28,7 +31,6 @@ constexpr auto kColorWindow = 233.0;
 
 vtkImageViewerDelegate::vtkImageViewerDelegate()
     : VtkShape(class_id)
-    , _text(std::make_shared<FilePathData>(""))
     , _vtk_widget {nullptr}
 {
     _image_view->SetColorLevel(kColorLevel);
@@ -141,14 +143,18 @@ void vtkImageViewerDelegate::setInData(std::shared_ptr<NodeData> data,
             if (auto d =
                     std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
             {
+                _image_view->SetRenderWindow(_renWin);
                 _image_view->SetInputConnection(d->algorithmOutput());
-                _image_view->SetRenderWindow(_renWin);
-                _image_view->SetRenderWindow(_renWin);
-                _image_view->SetupInteractor(_renWin->GetInteractor());
+                // _image_view->SetupInteractor(_renWin->GetInteractor());
             } else {
                 _image_view->SetInputConnection(nullptr);
                 _image_view->RemoveAllObservers();
+                _renWin->ClearInRenderStatus();
             }
             break;
+    }
+    if (auto item = dynamic_cast<QGraphicsObject*>(_vtk_widget->parent())) {
+        if (auto scene = item->scene())
+            scene->update();
     }
 }

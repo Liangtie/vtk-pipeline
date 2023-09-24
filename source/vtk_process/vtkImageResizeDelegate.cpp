@@ -153,6 +153,7 @@ void vtkImageResizeDelegate::setInData(std::shared_ptr<NodeData> data,
             break;
     }
     _image_resize->SetOutputDimensions(old[x], old[y], old[z]);
+    Q_EMIT dataUpdated(0);
 }
 
 QWidget* vtkImageResizeDelegate::embeddedWidget()

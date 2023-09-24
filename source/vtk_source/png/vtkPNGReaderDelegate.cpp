@@ -74,6 +74,7 @@ void vtkPNGReaderDelegate::setInData(std::shared_ptr<NodeData> data,
         fp && _reader->CanReadFile(fp->filePath().toStdString().data()))
     {
         _reader->SetFileName(fp->filePath().toStdString().data());
+
         Q_EMIT dataUpdated(0);
 
     } else {

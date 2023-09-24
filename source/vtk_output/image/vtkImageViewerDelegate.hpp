@@ -38,7 +38,7 @@ class vtkImageViewerDelegate
 
     vtkImageViewerDelegate();
 
-    virtual ~vtkImageViewerDelegate() = default;
+    ~vtkImageViewerDelegate() override = default;
 
   public:
     [[nodiscard]] QString caption() const override
@@ -67,7 +67,6 @@ class vtkImageViewerDelegate
     QWidget* embeddedWidget() override;
 
   private:
-    std::shared_ptr<FilePathData> _text;
     vtkNew<vtkImageViewer> _image_view;
     vtkNew<vtkGenericOpenGLRenderWindow> _renWin;
     EmbeddedQVTKRenderWidget* _vtk_widget;
