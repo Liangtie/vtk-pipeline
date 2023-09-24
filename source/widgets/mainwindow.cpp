@@ -26,8 +26,14 @@
 #include "vtk_pipeline/vtk_pipeline_model.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
+#include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_shapes/vtk_shape_category.hpp"
 #include "vtk_shapes/vtk_shapes_model.hpp"
+#include "vtk_source/vtkImageData.hpp"
+#include "vtk_source/vtkPolyData.hpp"
+#include "vtk_source/vtkRectilinearGrid.hpp"
+#include "vtk_source/vtkStructuredGrid.hpp"
+#include "vtk_source/vtkUnstructuredGrid.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
 #include "widgets/mainwindow.h"
@@ -94,7 +100,20 @@ MainWindow::MainWindow(QWidget* parent)
             VtkShapeType::DataSet,
             "Dataset",
             QIcon(":/style/icon/input.png"),
-            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+            std::vector<std::shared_ptr<VtkBaseShape>> {
+
+                std::make_shared<VtkShape>(VtkShapeType::DataSet,
+                                           QString(vtkImageData::id)),
+                std::make_shared<VtkShape>(VtkShapeType::DataSet,
+                                           QString(vtkPolyData::id)),
+                std::make_shared<VtkShape>(VtkShapeType::DataSet,
+                                           QString(vtkRectilinearGrid::id)),
+                std::make_shared<VtkShape>(VtkShapeType::DataSet,
+                                           QString(vtkStructuredGrid::id)),
+                std::make_shared<VtkShape>(VtkShapeType::DataSet,
+                                           QString(vtkUnstructuredGrid::id)),
+
+            }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
             VtkShapeType::Mapper,

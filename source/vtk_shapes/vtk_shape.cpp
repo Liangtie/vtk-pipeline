@@ -1,5 +1,7 @@
 #include "vtk_shape.hpp"
 
+#include <qtpreprocessorsupport.h>
+
 VtkShape::VtkShape(VtkShapeType type, QString title, QIcon icon)
     : _type(type)
     , _title(std::move(title))
@@ -31,6 +33,7 @@ auto VtkShape::hasChildren() const -> bool
 
 auto VtkShape::getChild(int idx) const -> std::shared_ptr<VtkBaseShape>
 {
+    Q_UNUSED(idx)
     return {};
 }
 

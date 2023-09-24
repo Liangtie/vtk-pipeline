@@ -497,15 +497,6 @@ QAbstractItemView::item:hover {
   );
 }
 
-QAbstractItemView[highlight="true"]::item:selected {
-  border-color: #2f7cb2;
-  border-style: solid;
-  border-top-width: 0px;
-  border-right-width: 0px;
-  border-bottom-width: 0px;
-  border-left-width: 3px;
-}
-
 QAbstractItemView::item {
   padding: 1px;
   margin: 0px;

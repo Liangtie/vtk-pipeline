@@ -1,11 +1,13 @@
 #ifndef VTK_SHAPE_HPP
 #define VTK_SHAPE_HPP
 
+#include <qicon.h>
+
 #include "vtk_shapes/vtk_base_shape.hpp"
 class VtkShape : public VtkBaseShape
 {
   public:
-    VtkShape(VtkShapeType type, QString title, QIcon icon);
+    VtkShape(VtkShapeType type, QString title, QIcon icon = QIcon());
 
     ~VtkShape() override;
 

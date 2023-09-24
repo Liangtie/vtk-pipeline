@@ -1,3 +1,5 @@
+#include <QIcon>
+
 #include "vtk_shapes_model.hpp"
 
 #include <qabstractitemmodel.h>
@@ -52,7 +54,6 @@ QVariant VtkShapeModel::data(const QModelIndex& index, int role) const
             return base_shape->title();
         case Qt::DecorationRole:
             return base_shape->icon();
-            break;
     }
 
     return {};
