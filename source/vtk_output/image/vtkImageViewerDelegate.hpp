@@ -26,7 +26,7 @@ class vtkImageViewerDelegate
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkImageViewerDelegate";
+    static constexpr auto class_id = "vtkImageViewer";
     [[nodiscard]] auto type() const -> VtkShapeType override
     {
         return class_id;
@@ -64,7 +64,6 @@ class vtkImageViewerDelegate
     QWidget* embeddedWidget() override;
 
   public:
-
   private Q_SLOTS:
 
     void onTextEdited(QString const& string);

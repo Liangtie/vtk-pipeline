@@ -9,8 +9,8 @@
 #include <QtWidgets/QLineEdit>
 
 #include "vtk_shapes/vtk_shape.hpp"
-#include "vtk_source/FilePathData.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
+#include "vtk_source/file_path/FilePathData.hpp"
 
 vtkImageViewerDelegate::vtkImageViewerDelegate()
     : VtkShape(class_id)

@@ -26,7 +26,7 @@ class vtkPNGReaderDelegate
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkPNGReaderDelegate";
+    static constexpr auto class_id = "vtkPNGReader";
 
     vtkPNGReaderDelegate();
     ~vtkPNGReaderDelegate() override;

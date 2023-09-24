@@ -8,10 +8,9 @@
 #include <QtCore/QEvent>
 #include <QtWidgets/QFileDialog>
 
-#include "FilePathData.hpp"
-#include "VtkAlgorithmOutputData.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
-#include "vtk_source/FilePathData.hpp"
+#include "vtk_source/VtkAlgorithmOutputData.hpp"
+#include "vtk_source/file_path/FilePathData.hpp"
 #include "vtk_source/vtkAlgorithmOutputData.hpp"
 
 vtkPNGReaderDelegate::vtkPNGReaderDelegate()

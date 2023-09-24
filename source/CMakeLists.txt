@@ -20,7 +20,6 @@ if (WIN32)
         ${VTK_PIPELINE_SRC}
         ${VTK_PIPELINE_RES}
         ${CMAKE_CURRENT_LIST_DIR}/vtk-pipeline.rc
-        vtk_source/vtkfilepathselectorwidget.h vtk_source/vtkfilepathselectorwidget.cpp vtk_source/vtkfilepathselectorwidget.ui
     )
 else ()
     add_executable(vtk_pipeline

@@ -6,9 +6,8 @@
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QLineEdit>
 
+#include "FilePathData.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
-#include "vtk_source/FilePathData.hpp"
-#include "vtk_source/vtkfilepathselectorwidget.h"
 #include "vtkfilepathselectorwidget.h"
 
 vtkFilePathSelector::vtkFilePathSelector()
