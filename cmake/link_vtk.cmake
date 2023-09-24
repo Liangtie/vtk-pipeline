@@ -8,6 +8,7 @@ find_package(VTK
     InteractionImage
     InteractionStyle
     InteractionWidgets
+    RenderingOpenGL2
 )
 
 # target_link_libraries(XX PRIVATE ${VTK_LIBRARIES})

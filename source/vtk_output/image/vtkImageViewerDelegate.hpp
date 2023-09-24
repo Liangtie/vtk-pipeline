@@ -15,7 +15,7 @@ using QtNodes::NodeDelegateModel;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
 
-class QLineEdit;
+class EmbeddedQVTKRenderWidget;
 
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
@@ -71,5 +71,5 @@ class vtkImageViewerDelegate
   private:
     std::shared_ptr<FilePathData> _text;
 
-    QLineEdit* _lineEdit;
+    EmbeddedQVTKRenderWidget* _vtk_widget;
 };

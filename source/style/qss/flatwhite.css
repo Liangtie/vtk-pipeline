@@ -497,7 +497,7 @@ QAbstractItemView::item:hover {
   );
 }
 
-QAbstractItemView::item {
+QAbstractItemView::item[menu="true"] {
   padding: 1px;
   margin: 0px;
   height: 36px;

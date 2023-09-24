@@ -6,8 +6,8 @@
 
 #include <QtCore/QJsonValue>
 #include <QtGui/QDoubleValidator>
-#include <QtWidgets/QLineEdit>
 
+#include "vtk_output/EmbeddedQVTKRenderWidget.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
 #include "vtk_source/file_path/FilePathData.hpp"
@@ -15,7 +15,7 @@
 vtkImageViewerDelegate::vtkImageViewerDelegate()
     : VtkShape(class_id)
     , _text(std::make_shared<FilePathData>(""))
-    , _lineEdit {nullptr}
+    , _vtk_widget {nullptr}
 {
 }
 
@@ -71,18 +71,8 @@ std::shared_ptr<NodeData> vtkImageViewerDelegate::outData(PortIndex)
 
 QWidget* vtkImageViewerDelegate::embeddedWidget()
 {
-    if (!_lineEdit) {
-        _lineEdit = new QLineEdit();
-
-        _lineEdit->setMaximumSize(_lineEdit->sizeHint());
-
-        connect(_lineEdit,
-                &QLineEdit::textChanged,
-                this,
-                &vtkImageViewerDelegate::onTextEdited);
-
-        _lineEdit->setText(_text->filePath());
+    if (!_vtk_widget) {
+        _vtk_widget = new EmbeddedQVTKRenderWidget();
     }
-
-    return _lineEdit;
+    return _vtk_widget;
 }

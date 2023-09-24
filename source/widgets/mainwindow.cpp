@@ -28,6 +28,7 @@
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
 #include "vtk_shapes/vtk_shape_category.hpp"
 #include "vtk_shapes/vtk_shapes_model.hpp"
+#include "vtk_source/decimal/NumberSourceDataModel.hpp"
 #include "vtk_source/file_path/vtkFilePathSelector.hpp"
 #include "vtk_source/png/vtkPNGReaderDelegate.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
@@ -84,6 +85,7 @@ MainWindow::MainWindow(QWidget* parent)
         ui->bottom_left_view->setModel(_bottom_left_menu_model);
         ui->bottom_left_view->setVerticalScrollBarPolicy(
             Qt::ScrollBarAlwaysOff);
+        ui->bottom_left_view->setProperty("menu", true);
         ui->bottom_left_view->setMaximumHeight(
             static_cast<int>(ITEM_HEIGHT)
             * static_cast<int>(BottomLeftMenuModel::ROW_COUNT));
@@ -97,6 +99,7 @@ MainWindow::MainWindow(QWidget* parent)
             QString {},
             QIcon(":/style/icon/input.png"),
             std::vector<std::shared_ptr<VtkBaseShape>> {
+                std::make_shared<NumberSourceDataModel>(),
                 std::make_shared<vtkFilePathSelector>(),
                 std::make_shared<vtkPNGReaderDelegate>(),
             }));
@@ -138,6 +141,8 @@ MainWindow::MainWindow(QWidget* parent)
             proxy->setRecursiveFilteringEnabled(true);
             ui->vtk_shapes_view->setModel(proxy);
             ui->vtk_shapes_view->setProperty("highlight", true);
+            ui->vtk_shapes_view->setProperty("menu", true);
+
             connect(ui->searchWidget,
                     &QLineEdit::textChanged,
                     this,
@@ -163,8 +168,11 @@ MainWindow::MainWindow(QWidget* parent)
 
         std::shared_ptr<NodeDelegateModelRegistry> registry = ([]{
             auto ret = std::make_shared<NodeDelegateModelRegistry>();
+            ret->registerModel<NumberSourceDataModel>("Dataset");
             ret->registerModel<vtkFilePathSelector>("Dataset");
             ret->registerModel<vtkPNGReaderDelegate>("Dataset");
+
+
             ret->registerModel<vtkImageViewerDelegate>("Output");
             return ret;
         })();
