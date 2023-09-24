@@ -1,9 +1,10 @@
 #include <QFileDialog>
 #include <memory>
+#include <vector>
 
 #include "mainwindow.h"
 
-#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+// #include <FramelessHelper/Widgets/framelesswidgetshelper.h>
 #include <qabstractbutton.h>
 #include <qabstractitemmodel.h>
 #include <qabstractitemview.h>
@@ -23,32 +24,37 @@
 #include "vtk_pipeline/vtk_pipeline_model.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
+#include "vtk_shapes/vtk_shape_category.hpp"
+#include "vtk_shapes/vtk_shapes_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
 #include "widgets/mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
-    : FramelessMainWindow(parent)
+    : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , _bottom_left_menu_model(new BottomLeftMenuModel(this))
 {
     ui->setupUi(this);
 
+    setWindowFlags(Qt::FramelessWindowHint);
     // SECTION - Frameless
     {
-        using namespace wangwenx190::FramelessHelper;
-        auto helper = FRAMELESSHELPER_PREPEND_NAMESPACE(
-            FramelessWidgetsHelper)::get(this);
-        // helper->setTitleBarWidget(ui->menu_top);
+        // using namespace wangwenx190::FramelessHelper;
+        // auto helper = FRAMELESSHELPER_PREPEND_NAMESPACE(
+        //     FramelessWidgetsHelper)::get(this);
+        // // helper->setTitleBarWidget(ui->menu_top);
 
-        helper->setSystemButton(ui->btn_close, Global::SystemButtonType::Close);
-        helper->setSystemButton(ui->btn_min,
-                                Global::SystemButtonType::Minimize);
-        helper->setSystemButton(ui->btn_max,
-                                Global::SystemButtonType::Maximize);
-        helper->setSystemButton(ui->btn_open, Global::SystemButtonType::Help);
-        helper->setSystemButton(ui->btn_save,
-                                Global::SystemButtonType::WindowIcon);
+        // helper->setSystemButton(ui->btn_close,
+        // Global::SystemButtonType::Close);
+        // helper->setSystemButton(ui->btn_min,
+        //                         Global::SystemButtonType::Minimize);
+        // helper->setSystemButton(ui->btn_max,
+        //                         Global::SystemButtonType::Maximize);
+        // helper->setSystemButton(ui->btn_open,
+        // Global::SystemButtonType::Help);
+        // helper->setSystemButton(ui->btn_save,
+        //                         Global::SystemButtonType::WindowIcon);
 
         connect(
             ui->btn_close, &QAbstractButton::clicked, this, &QWidget::close);
@@ -66,10 +72,6 @@ MainWindow::MainWindow(QWidget* parent)
                     else
                         showMaximized();
                 });
-        connect(helper,
-                &FramelessWidgetsHelper::windowChanged,
-                this,
-                &MainWindow::onWindowsSizeChanged);
     }
 
     // SECTION - Setup menus
@@ -81,8 +83,46 @@ MainWindow::MainWindow(QWidget* parent)
             static_cast<int>(ITEM_HEIGHT)
             * static_cast<int>(BottomLeftMenuModel::ROW_COUNT));
     }
+    // SECTION - Setup the vtk shapes
+    {
+        std::vector<std::shared_ptr<VtkBaseShape>> shapes;
+        shapes.push_back(std::make_shared<VtkShapeCategory>(
+            VtkShapeType::DataSet,
+            "Dataset",
+            QIcon(":/style/icon/input.png"),
+            std::vector<std::shared_ptr<VtkBaseShape>> {}));
 
-    // SECTION - The pipeline
+        shapes.push_back(std::make_shared<VtkShapeCategory>(
+            VtkShapeType::Mapper,
+            "Mapper",
+            QIcon(":/style/icon/mapper.png"),
+            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+
+        shapes.push_back(std::make_shared<VtkShapeCategory>(
+            VtkShapeType::Fitter,
+            "Fitter",
+            QIcon(":/style/icon/filter.png"),
+            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+
+        shapes.push_back(std::make_shared<VtkShapeCategory>(
+            VtkShapeType::Process,
+            "Process",
+            QIcon(":/style/icon/process.png"),
+            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+
+        shapes.push_back(std::make_shared<VtkShapeCategory>(
+            VtkShapeType::Output,
+            "Output",
+            QIcon(":/style/icon/output.png"),
+            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+
+        _vtk_shapes_model =
+            new VtkShapeModel(std::move(shapes), ui->vtk_shapes_view);
+
+        ui->vtk_shapes_view->setModel(_vtk_shapes_model);
+    }
+
+    // SECTION - The vtk pipeline view and scene
     {
         setupDataViewLightStyle();
 
@@ -138,14 +178,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
-    FramelessMainWindow::resizeEvent(event);
+    QMainWindow::resizeEvent(event);
     onWindowsSizeChanged();
 }
 
 void MainWindow::onWindowsSizeChanged()
 {
-    static const QIcon icon_original(":/style/icon/show_original_size.svg");
-    static const QIcon icon_max(":/style/icon/show_max_size.svg");
+    static const QIcon icon_original(":/style/icon/show_original_size.png");
+    static const QIcon icon_max(":/style/icon/show_max_size.png");
 
     if (isMaximized())
         ui->btn_max->setIcon(icon_original);

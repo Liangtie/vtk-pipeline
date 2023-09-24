@@ -1,6 +1,7 @@
 #ifndef VTK_BASE_SHAPE_HPP
 #define VTK_BASE_SHAPE_HPP
 #include <QString>
+#include <vector>
 
 #include <qicon.h>
 
@@ -23,6 +24,9 @@ class VtkBaseShape
 
     [[nodiscard]] virtual auto getChild(int idx) const
         -> std::shared_ptr<VtkBaseShape> = 0;
+
+    [[nodiscard]] virtual auto getChildren() const
+        -> std::vector<std::shared_ptr<VtkBaseShape>> const& = 0;
 };
 
 #endif

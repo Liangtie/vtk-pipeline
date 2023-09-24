@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <memory>
 
-#include <FramelessHelper/Widgets/framelessmainwindow.h>
 #include <qabstractitemmodel.h>
 #include <qabstractitemview.h>
 
@@ -21,8 +20,8 @@ namespace Ui
 {
 class MainWindow;
 }
-using FRAMELESSHELPER_PREPEND_NAMESPACE(FramelessMainWindow);
-class MainWindow : public FramelessMainWindow
+// using FRAMELESSHELPER_PREPEND_NAMESPACE(FramelessMainWindow);
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 

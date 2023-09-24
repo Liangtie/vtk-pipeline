@@ -40,9 +40,9 @@ QVariant BottomLeftMenuModel::data(const QModelIndex& index, int role) const
 
             switch (index.row()) {
                 case ABOUT:
-                    return QIcon(":/style/icon/about.svg");
+                    return QIcon(":/style/icon/about.png");
                 case SETTINGS:
-                    return QIcon(":/style/icon/settings.svg");
+                    return QIcon(":/style/icon/settings.png");
             }
             break;
     }

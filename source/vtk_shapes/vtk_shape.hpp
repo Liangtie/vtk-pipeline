@@ -21,6 +21,12 @@ class VtkShape : public VtkBaseShape
         -> std::shared_ptr<VtkBaseShape> override;
 
     [[nodiscard]] auto childrenCount() const -> int override;
+    [[nodiscard]] auto getChildren() const
+        -> std::vector<std::shared_ptr<VtkBaseShape>> const& override
+    {
+        static std::vector<std::shared_ptr<VtkBaseShape>> invalid;
+        return invalid;
+    }
 
   private:
     VtkShapeType const _type;

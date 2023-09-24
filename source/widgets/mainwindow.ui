@@ -93,7 +93,7 @@
                         </property>
                         <property name="icon">
                           <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/open.svg</normaloff>:/style/icon/open.svg</iconset>
+                            <normaloff>:/style/icon/open.png</normaloff>:/style/icon/open.png</iconset>
                         </property>
                       </widget>
                     </item>
@@ -104,7 +104,7 @@
                         </property>
                         <property name="icon">
                           <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/save.svg</normaloff>:/style/icon/save.svg</iconset>
+                            <normaloff>:/style/icon/save.png</normaloff>:/style/icon/save.png</iconset>
                         </property>
                       </widget>
                     </item>
@@ -146,8 +146,8 @@
                         </property>
                         <property name="icon">
                           <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/show_min_size.svg</normaloff>
-                            :/style/icon/show_min_size.svg</iconset>
+                            <normaloff>:/style/icon/show_min_size.png</normaloff>
+                            :/style/icon/show_min_size.png</iconset>
                         </property>
                       </widget>
                     </item>
@@ -158,8 +158,8 @@
                         </property>
                         <property name="icon">
                           <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/show_max_size.svg</normaloff>
-                            :/style/icon/show_max_size.svg</iconset>
+                            <normaloff>:/style/icon/show_max_size.png</normaloff>
+                            :/style/icon/show_max_size.png</iconset>
                         </property>
                       </widget>
                     </item>
@@ -170,7 +170,7 @@
                         </property>
                         <property name="icon">
                           <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/close.svg</normaloff>:/style/icon/close.svg</iconset>
+                            <normaloff>:/style/icon/close.png</normaloff>:/style/icon/close.png</iconset>
                         </property>
                       </widget>
                     </item>

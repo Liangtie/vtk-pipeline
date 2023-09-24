@@ -30,6 +30,12 @@ class VtkShapeCategory : public VtkBaseShape
     [[nodiscard]] auto getChild(int idx) const
         -> std::shared_ptr<VtkBaseShape> override;
 
+    [[nodiscard]] auto getChildren() const
+        -> std::vector<std::shared_ptr<VtkBaseShape>> const& override
+    {
+        return _shapes;
+    }
+
   private:
     VtkShapeType const _type;
     QString const _title;
