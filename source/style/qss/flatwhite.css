@@ -497,6 +497,15 @@ QAbstractItemView::item:hover {
   );
 }
 
+QAbstractItemView[highlight="true"]::item:selected {
+  border-color: #2f7cb2;
+  border-style: solid;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 3px;
+}
+
 QAbstractItemView::item {
   padding: 1px;
   margin: 0px;
@@ -921,6 +930,17 @@ QWidget[flat="true"] {
 
 QToolButton#btn_close:hover {
   background: rgb(251, 155, 155);
+}
+
+QLineEdit#searchWidget {
+  background: #ffffff;
+  border-color: #2f7cb2;
+  border-style: solid;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 3px;
+  border-left-width: 0px;
+  height: 36px;
 }
 
 /* END The PROJECT */

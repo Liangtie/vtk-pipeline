@@ -33,5 +33,8 @@
         <file>style/icon/mapper.png</file>
         <file>style/icon/output.png</file>
         <file>style/icon/process.png</file>
+        <file>style/icon/search.png</file>
+        <file>style/icon/down.png</file>
+        <file>style/icon/right.png</file>
     </qresource>
 </RCC>

@@ -1,10 +1,10 @@
 #include <QFileDialog>
+#include <QRegularExpression>
 #include <memory>
-#include <vector>
 
 #include "mainwindow.h"
 
-// #include <FramelessHelper/Widgets/framelesswidgetshelper.h>
+#include <FramelessHelper/Widgets/framelesswidgetshelper.h>
 #include <qabstractbutton.h>
 #include <qabstractitemmodel.h>
 #include <qabstractitemview.h>
@@ -12,10 +12,12 @@
 #include <qframe.h>
 #include <qicon.h>
 #include <qlayoutitem.h>
+#include <qlineedit.h>
 #include <qlistview.h>
 #include <qnamespace.h>
 #include <qobject.h>
 #include <qsizepolicy.h>
+#include <qsortfilterproxymodel.h>
 #include <qwidget.h>
 
 #include "constraint/item_in_view.hpp"
@@ -31,30 +33,27 @@
 #include "widgets/mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
+    : FramelessMainWindow(parent)
     , ui(new Ui::MainWindow)
     , _bottom_left_menu_model(new BottomLeftMenuModel(this))
 {
     ui->setupUi(this);
 
-    setWindowFlags(Qt::FramelessWindowHint);
     // SECTION - Frameless
     {
-        // using namespace wangwenx190::FramelessHelper;
-        // auto helper = FRAMELESSHELPER_PREPEND_NAMESPACE(
-        //     FramelessWidgetsHelper)::get(this);
-        // // helper->setTitleBarWidget(ui->menu_top);
+        using namespace wangwenx190::FramelessHelper;
+        auto helper = FRAMELESSHELPER_PREPEND_NAMESPACE(
+            FramelessWidgetsHelper)::get(this);
+        // helper->setTitleBarWidget(ui->menu_top);
 
-        // helper->setSystemButton(ui->btn_close,
-        // Global::SystemButtonType::Close);
-        // helper->setSystemButton(ui->btn_min,
-        //                         Global::SystemButtonType::Minimize);
-        // helper->setSystemButton(ui->btn_max,
-        //                         Global::SystemButtonType::Maximize);
-        // helper->setSystemButton(ui->btn_open,
-        // Global::SystemButtonType::Help);
-        // helper->setSystemButton(ui->btn_save,
-        //                         Global::SystemButtonType::WindowIcon);
+        helper->setSystemButton(ui->btn_close, Global::SystemButtonType::Close);
+        helper->setSystemButton(ui->btn_min,
+                                Global::SystemButtonType::Minimize);
+        helper->setSystemButton(ui->btn_max,
+                                Global::SystemButtonType::Maximize);
+        helper->setSystemButton(ui->btn_open, Global::SystemButtonType::Help);
+        helper->setSystemButton(ui->btn_save,
+                                Global::SystemButtonType::WindowIcon);
 
         connect(
             ui->btn_close, &QAbstractButton::clicked, this, &QWidget::close);
@@ -72,6 +71,10 @@ MainWindow::MainWindow(QWidget* parent)
                     else
                         showMaximized();
                 });
+        connect(qApp,
+                &QApplication::applicationStateChanged,
+                this,
+                &MainWindow::onWindowsSizeChanged);
     }
 
     // SECTION - Setup menus
@@ -83,7 +86,8 @@ MainWindow::MainWindow(QWidget* parent)
             static_cast<int>(ITEM_HEIGHT)
             * static_cast<int>(BottomLeftMenuModel::ROW_COUNT));
     }
-    // SECTION - Setup the vtk shapes
+
+    // SECTION - The pipeline
     {
         std::vector<std::shared_ptr<VtkBaseShape>> shapes;
         shapes.push_back(std::make_shared<VtkShapeCategory>(
@@ -119,7 +123,30 @@ MainWindow::MainWindow(QWidget* parent)
         _vtk_shapes_model =
             new VtkShapeModel(std::move(shapes), ui->vtk_shapes_view);
 
-        ui->vtk_shapes_view->setModel(_vtk_shapes_model);
+        // SECTION -The filter
+        {
+            const auto proxy = new QSortFilterProxyModel(this);
+            proxy->setSourceModel(_vtk_shapes_model);
+            proxy->setRecursiveFilteringEnabled(true);
+            ui->vtk_shapes_view->setModel(proxy);
+            ui->vtk_shapes_view->setProperty("highlight", true);
+            connect(ui->searchWidget,
+                    &QLineEdit::textChanged,
+                    this,
+                    [=](const QString& fitter)
+                    {
+                        QRegularExpression regExp(
+                            fitter,
+                            QRegularExpression::PatternOption::
+                                CaseInsensitiveOption);
+                        proxy->setFilterRegularExpression(regExp);
+                        if (fitter.size() != 0) {
+                            ui->vtk_shapes_view->expandAll();
+                        } else {
+                            ui->vtk_shapes_view->collapseAll();
+                        }
+                    });
+        }
     }
 
     // SECTION - The vtk pipeline view and scene
@@ -178,7 +205,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
-    QMainWindow::resizeEvent(event);
+    FramelessMainWindow::resizeEvent(event);
     onWindowsSizeChanged();
 }
 

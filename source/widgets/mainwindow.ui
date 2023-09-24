@@ -1,284 +1,333 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-  <class>MainWindow</class>
-  <widget class="QMainWindow" name="MainWindow">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>666</width>
-        <height>479</height>
-      </rect>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>666</width>
+    <height>479</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <property name="spacing">
+     <number>0</number>
     </property>
-    <property name="windowTitle">
-      <string>MainWindow</string>
+    <property name="leftMargin">
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="centralwidget">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-        <property name="spacing">
-          <number>0</number>
-        </property>
-        <property name="leftMargin">
-          <number>0</number>
-        </property>
-        <property name="topMargin">
-          <number>0</number>
-        </property>
-        <property name="rightMargin">
-          <number>0</number>
-        </property>
-        <property name="bottomMargin">
-          <number>0</number>
-        </property>
-        <item>
-          <widget class="QWidget" name="menu_top" native="true">
-            <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-              </sizepolicy>
-            </property>
-            <layout class="QHBoxLayout" name="lay_sys_buttons">
-              <property name="spacing">
-                <number>0</number>
-              </property>
-              <property name="leftMargin">
-                <number>0</number>
-              </property>
-              <property name="topMargin">
-                <number>0</number>
-              </property>
-              <property name="rightMargin">
-                <number>0</number>
-              </property>
-              <property name="bottomMargin">
-                <number>0</number>
-              </property>
-              <item>
-                <widget class="QWidget" name="menu_top_left" native="true">
-                  <layout class="QHBoxLayout" name="horizontalLayout_2">
-                    <property name="leftMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                      <number>0</number>
-                    </property>
-                    <item>
-                      <widget class="QToolButton" name="toolButton">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/VTK.png</normaloff>:/style/icon/VTK.png</iconset>
-                        </property>
-                        <property name="iconSize">
-                          <size>
-                            <width>32</width>
-                            <height>32</height>
-                          </size>
-                        </property>
-                      </widget>
-                    </item>
-                    <item>
-                      <widget class="QToolButton" name="btn_open">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/open.png</normaloff>:/style/icon/open.png</iconset>
-                        </property>
-                      </widget>
-                    </item>
-                    <item>
-                      <widget class="QToolButton" name="btn_save">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/save.png</normaloff>:/style/icon/save.png</iconset>
-                        </property>
-                      </widget>
-                    </item>
-                  </layout>
-                </widget>
-              </item>
-              <item>
-                <spacer name="horizontalSpacer">
-                  <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>40</width>
-                      <height>20</height>
-                    </size>
-                  </property>
-                </spacer>
-              </item>
-              <item>
-                <widget class="QWidget" name="menu_top_right" native="true">
-                  <layout class="QHBoxLayout" name="horizontalLayout">
-                    <property name="leftMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                      <number>0</number>
-                    </property>
-                    <item>
-                      <widget class="QToolButton" name="btn_min">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/show_min_size.png</normaloff>
-                            :/style/icon/show_min_size.png</iconset>
-                        </property>
-                      </widget>
-                    </item>
-                    <item>
-                      <widget class="QToolButton" name="btn_max">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/show_max_size.png</normaloff>
-                            :/style/icon/show_max_size.png</iconset>
-                        </property>
-                      </widget>
-                    </item>
-                    <item>
-                      <widget class="QToolButton" name="btn_close">
-                        <property name="text">
-                          <string />
-                        </property>
-                        <property name="icon">
-                          <iconset resource="../vtk-pipeline.qrc">
-                            <normaloff>:/style/icon/close.png</normaloff>:/style/icon/close.png</iconset>
-                        </property>
-                      </widget>
-                    </item>
-                  </layout>
-                </widget>
-              </item>
-            </layout>
-          </widget>
-        </item>
-        <item>
-          <widget class="QWidget" name="widget_content" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
-              <property name="spacing">
-                <number>0</number>
-              </property>
-              <item>
-                <widget class="QWidget" name="widget_left" native="true">
-                  <layout class="QVBoxLayout" name="lay_left">
-                    <property name="spacing">
-                      <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                      <number>0</number>
-                    </property>
-                    <item>
-                      <widget class="VtkShapesView" name="vtk_shapes_view" />
-                    </item>
-                    <item>
-                      <widget class="Line" name="line">
-                        <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                        </property>
-                      </widget>
-                    </item>
-                    <item>
-                      <widget class="BottomLeftMenuView" name="bottom_left_view">
-                        <property name="sizePolicy">
-                          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                          </sizepolicy>
-                        </property>
-                      </widget>
-                    </item>
-                  </layout>
-                </widget>
-              </item>
-              <item>
-                <widget class="QWidget" name="widget_right" native="true">
-                  <layout class="QVBoxLayout" name="lay_right">
-                    <property name="spacing">
-                      <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                      <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                      <number>0</number>
-                    </property>
-                  </layout>
-                </widget>
-              </item>
-            </layout>
-          </widget>
-        </item>
-      </layout>
-    </widget>
-    <widget class="QMenuBar" name="menubar">
-      <property name="geometry">
-        <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>666</width>
-          <height>21</height>
-        </rect>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="menu_top" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-    </widget>
-    <widget class="QStatusBar" name="statusbar" />
+      <layout class="QHBoxLayout" name="lay_sys_buttons">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="menu_top_left" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QToolButton" name="toolButton">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/VTK.png</normaloff>:/style/icon/VTK.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_open">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/open.png</normaloff>:/style/icon/open.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_save">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/save.png</normaloff>:/style/icon/save.png</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QWidget" name="menu_top_right" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QToolButton" name="btn_min">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/show_min_size.png</normaloff>:/style/icon/show_min_size.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_max">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/show_max_size.png</normaloff>:/style/icon/show_max_size.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_close">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../vtk-pipeline.qrc">
+              <normaloff>:/style/icon/close.png</normaloff>:/style/icon/close.png</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_content" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="widget_left" native="true">
+         <layout class="QVBoxLayout" name="lay_left">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QToolButton" name="search">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="../vtk-pipeline.qrc">
+                 <normaloff>:/style/icon/search.png</normaloff>:/style/icon/search.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="searchWidget">
+               <property name="placeholderText">
+                <string>Search the steps</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="VtkShapesView" name="vtk_shapes_view"/>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="BottomLeftMenuView" name="bottom_left_view">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_right" native="true">
+         <layout class="QVBoxLayout" name="lay_right">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <customwidgets>
-    <customwidget>
-      <class>BottomLeftMenuView</class>
-      <extends>QListView</extends>
-      <header>widgets/bottom_left_menu/bottom_left_menu_view.hpp</header>
-    </customwidget>
-    <customwidget>
-      <class>VtkShapesView</class>
-      <extends>QTreeView</extends>
-      <header>vtk_shapes/vtk_shapes_view.hpp</header>
-    </customwidget>
-  </customwidgets>
-  <resources>
-    <include location="../vtk-pipeline.qrc" />
-  </resources>
-  <connections />
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>666</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BottomLeftMenuView</class>
+   <extends>QListView</extends>
+   <header>widgets/bottom_left_menu/bottom_left_menu_view.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>VtkShapesView</class>
+   <extends>QTreeView</extends>
+   <header>vtk_shapes/vtk_shapes_view.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../vtk-pipeline.qrc"/>
+ </resources>
+ <connections/>
 </ui>

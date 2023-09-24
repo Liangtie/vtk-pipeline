@@ -11,6 +11,11 @@ class VtkShapesView : public QTreeView
     VtkShapesView(QWidget* parent = nullptr);
 
     ~VtkShapesView() override;
+
+  protected:
+    void drawRow(QPainter* painter,
+                 const QStyleOptionViewItem& options,
+                 const QModelIndex& index) const override;
 };
 
 #endif
