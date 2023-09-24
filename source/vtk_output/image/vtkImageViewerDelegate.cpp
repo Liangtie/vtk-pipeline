@@ -145,7 +145,6 @@ void vtkImageViewerDelegate::setInData(std::shared_ptr<NodeData> data,
             {
                 _image_view->SetRenderWindow(_renWin);
                 _image_view->SetInputConnection(d->algorithmOutput());
-                // _image_view->SetupInteractor(_renWin->GetInteractor());
             } else {
                 _image_view->SetInputConnection(nullptr);
                 _image_view->RemoveAllObservers();
