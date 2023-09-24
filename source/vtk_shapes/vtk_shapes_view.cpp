@@ -26,7 +26,7 @@ void VtkShapesView::drawRow(QPainter* painter,
         WIDTH = 12,
         HEIGHT = WIDTH
     };
-    if (model()->hasChildren(index)) {
+    if (model()->hasChildren(index) || !model()->parent(index).isValid()) {
         if (isExpanded(index)) {
             static QIcon down(":/style/icon/down.png");
             down.paint(painter,
