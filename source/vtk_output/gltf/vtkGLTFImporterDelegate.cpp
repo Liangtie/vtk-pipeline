@@ -98,34 +98,36 @@ QWidget* vtkGLTFImporterDelegate::embeddedWidget()
     return _vtk_widget;
 }
 
+void vtkGLTFImporterDelegate::init()
+{
+    _gLTFImporter->SetRenderWindow(_renWin);
+    _vtk_widget->setRenderWindow(_renWin);
+    vtkNew<vtkNamedColors> colors;
+    vtkColor3d backgroundColor = colors->GetColor3d("SlateGray");
+    _renderer->SetBackground(backgroundColor.GetData());
+    _renderer->UseHiddenLineRemovalOn();
+    _renWin->AddRenderer(_renderer);
+    _renderWindowInteractor->SetRenderWindow(_renWin);
+    _renderWindowInteractor->SetInteractorStyle(_style);
+    _gLTFImporter->SetRenderWindow(_renWin);
+    _headLight->SetLightTypeToHeadlight();
+    _headLight->SwitchOn();
+    _renderer->AddLight(_headLight);
+}
+
 void vtkGLTFImporterDelegate::setInData(std::shared_ptr<NodeData> data,
                                         PortIndex const)
 {
     if (auto fp = std::dynamic_pointer_cast<FilePathData>(data)) {
-        _gLTFImporter = vtkNew<vtkGLTFImporter>();
-        _renWin = vtkNew<vtkGenericOpenGLRenderWindow>();
-        _gLTFImporter->SetRenderWindow(_renWin);
-        _vtk_widget->setRenderWindow(_renWin);
-        vtkNew<vtkNamedColors> colors;
-
-        vtkColor3d backgroundColor = colors->GetColor3d("SlateGray");
-
         _gLTFImporter->SetFileName(fp->filePath().toStdString().c_str());
-
-        _renderer = vtkNew<vtkRenderer>();
-        _renderer->SetBackground(backgroundColor.GetData());
-        _renderer->UseHiddenLineRemovalOn();
+        _gLTFImporter->Update();
         if (_renWin) {
-            _renWin->AddRenderer(_renderer);
-            _renderWindowInteractor = vtkNew<vtkRenderWindowInteractor>();
-            _renderWindowInteractor->SetRenderWindow(_renWin);
-            _renderWindowInteractor->SetInteractorStyle(_style);
+            if (!_initiated) {
+                init();
+                _initiated = true;
+            }
             _gLTFImporter->SetRenderWindow(_renWin);
             _gLTFImporter->Update();
-            _headLight = vtkNew<vtkLight>();
-            _headLight->SetLightTypeToHeadlight();
-            _headLight->SwitchOn();
-            _renderer->AddLight(_headLight);
             _renWin->Render();
             _renderer->ResetCamera();
             _renderer->GetActiveCamera()->Azimuth(20);

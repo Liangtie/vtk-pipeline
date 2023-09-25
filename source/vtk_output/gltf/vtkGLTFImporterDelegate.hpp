@@ -71,6 +71,7 @@ class vtkGLTFImporterDelegate
     QWidget* embeddedWidget() override;
 
   private:
+    void init();
     vtkNew<vtkGLTFImporter> _gLTFImporter;
     vtkNew<vtkGenericOpenGLRenderWindow> _renWin;
     EmbeddedQVTKRenderWidget* _vtk_widget;
@@ -78,4 +79,5 @@ class vtkGLTFImporterDelegate
     vtkNew<vtkRenderWindowInteractor> _renderWindowInteractor;
     vtkNew<vtkLight> _headLight;
     vtkNew<vtkInteractorStyleTrackballCamera> _style;
+    bool _initiated {};
 };
