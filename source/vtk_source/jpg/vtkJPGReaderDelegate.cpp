@@ -62,6 +62,7 @@ NodeDataType vtkJPGReaderDelegate::dataType(PortType const t,
 std::shared_ptr<NodeData> vtkJPGReaderDelegate::outData(PortIndex idx)
 {
     Q_UNUSED(idx)
+    _reader->Update();
     return std::make_shared<VtkAlgorithmOutputData>(_reader->GetOutputPort());
 }
 

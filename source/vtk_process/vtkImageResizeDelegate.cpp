@@ -125,6 +125,7 @@ NodeDataType vtkImageResizeDelegate::dataType(PortType t, PortIndex idx) const
 
 std::shared_ptr<NodeData> vtkImageResizeDelegate::outData(PortIndex)
 {
+    _image_resize->Update();
     return std::make_shared<VtkAlgorithmOutputData>(
         _image_resize->GetOutputPort());
 }
