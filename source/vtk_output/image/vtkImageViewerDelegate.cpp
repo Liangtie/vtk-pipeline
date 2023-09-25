@@ -32,11 +32,15 @@ constexpr auto kColorWindow = 233.0;
 vtkImageViewerDelegate::vtkImageViewerDelegate()
     : VtkShape(class_id)
     , _vtk_widget {nullptr}
+
 {
     _image_view->SetColorLevel(kColorLevel);
     _image_view->SetColorWindow(kColorWindow);
 }
-
+vtkImageViewerDelegate::~vtkImageViewerDelegate()
+{
+    _renWin->Finalize();
+}
 QJsonObject vtkImageViewerDelegate::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
@@ -145,13 +149,14 @@ void vtkImageViewerDelegate::setInData(std::shared_ptr<NodeData> data,
             {
                 _image_view->SetRenderWindow(_renWin);
                 _image_view->SetInputConnection(d->algorithmOutput());
-                _image_view->Render();
             } else {
                 _image_view->SetInputConnection(nullptr);
                 _renWin->ClearInRenderStatus();
             }
             break;
     }
+    if (_image_view->GetInput())
+        _image_view->Render();
     if (auto item = dynamic_cast<QGraphicsObject*>(_vtk_widget->parent())) {
         if (auto scene = item->scene())
             scene->update();

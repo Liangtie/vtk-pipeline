@@ -68,4 +68,5 @@ class vtkImageResizeDelegate
 
   private:
     vtkNew<vtkImageResize> _image_resize;
+    vtkAlgorithmOutput* _last_in {};
 };

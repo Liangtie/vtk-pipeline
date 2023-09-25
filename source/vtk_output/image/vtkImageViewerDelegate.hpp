@@ -38,7 +38,7 @@ class vtkImageViewerDelegate
 
     vtkImageViewerDelegate();
 
-    ~vtkImageViewerDelegate() override = default;
+    ~vtkImageViewerDelegate() override;
 
   public:
     [[nodiscard]] QString caption() const override

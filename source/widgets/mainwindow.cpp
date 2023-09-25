@@ -150,6 +150,7 @@ MainWindow::MainWindow(QWidget* parent)
             ui->vtk_shapes_view->setModel(proxy);
             ui->vtk_shapes_view->setProperty("highlight", true);
             ui->vtk_shapes_view->setProperty("menu", true);
+            ui->vtk_shapes_view->setDragEnabled(true);
 
             connect(ui->searchWidget,
                     &QLineEdit::textChanged,

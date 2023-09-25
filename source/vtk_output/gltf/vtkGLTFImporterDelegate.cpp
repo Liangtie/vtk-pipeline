@@ -38,6 +38,9 @@ vtkGLTFImporterDelegate::~vtkGLTFImporterDelegate()
 {
     _renderWindowInteractor.Reset();
     _renderer.Reset();
+    _renWin->Finalize();
+    if (_vtk_widget)
+        _vtk_widget->close();
 }
 
 QJsonObject vtkGLTFImporterDelegate::save() const

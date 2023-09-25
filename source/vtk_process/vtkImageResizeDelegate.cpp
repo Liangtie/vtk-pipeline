@@ -25,6 +25,7 @@ enum
 
 vtkImageResizeDelegate::vtkImageResizeDelegate()
     : VtkShape(class_id)
+
 {
     _image_resize->SetOutputDimensions(-1, -1, -1);
 }
@@ -125,35 +126,41 @@ NodeDataType vtkImageResizeDelegate::dataType(PortType t, PortIndex idx) const
 
 std::shared_ptr<NodeData> vtkImageResizeDelegate::outData(PortIndex)
 {
-    _image_resize->Update();
-    return std::make_shared<VtkAlgorithmOutputData>(
-        _image_resize->GetOutputPort());
+    if (_last_in) {
+        _image_resize->Update();
+        return std::make_shared<VtkAlgorithmOutputData>(
+            _image_resize->GetOutputPort());
+    }
+    return {};
 }
 
 void vtkImageResizeDelegate::setInData(std::shared_ptr<NodeData> data,
                                        PortIndex idx)
 {
-    auto old = _image_resize->GetOutputDimensions();
+    int new_dims[3] {0};
+    memcpy(new_dims, _image_resize->GetOutputDimensions(), 3);
     switch (idx) {
         case x:
             if (auto d = std::dynamic_pointer_cast<DecimalData>(data))
-                old[x] = static_cast<int>(d->number());
+                new_dims[x] = static_cast<int>(d->number());
             break;
         case y:
             if (auto d = std::dynamic_pointer_cast<DecimalData>(data))
-                old[y] = static_cast<int>(d->number());
+                new_dims[y] = static_cast<int>(d->number());
             break;
         case z:
             if (auto d = std::dynamic_pointer_cast<DecimalData>(data))
-                old[z] = static_cast<int>(d->number());
+                new_dims[z] = static_cast<int>(d->number());
             break;
         case src:
             if (auto d =
                     std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
-                _image_resize->SetInputConnection(d->algorithmOutput());
+                _last_in = d->algorithmOutput();
             break;
     }
-    _image_resize->SetOutputDimensions(old[x], old[y], old[z]);
+    _image_resize = vtkNew<vtkImageResize>();
+    _image_resize->SetInputConnection(_last_in);
+    _image_resize->SetOutputDimensions(new_dims[x], new_dims[y], new_dims[z]);
     Q_EMIT dataUpdated(0);
 }
 
