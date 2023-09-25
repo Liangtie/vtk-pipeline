@@ -1,0 +1,5 @@
+#ifndef VTKSLICESELECTOR_HPP
+#define VTKSLICESELECTOR_HPP
+
+
+#endif

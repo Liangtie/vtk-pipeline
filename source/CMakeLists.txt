@@ -48,8 +48,6 @@ add_custom_command (TARGET vtk_pipeline POST_BUILD
     $<TARGET_FILE:QtNodes::QtNodes>
     $<TARGET_FILE:FramelessHelper::Widgets>
     $<TARGET_FILE:FramelessHelper::Core>
-
-
     $<TARGET_FILE_DIR:vtk_pipeline>
 )
 
@@ -63,10 +61,10 @@ target_include_directories(
 )
 
 
-# set_target_properties(vtk_pipeline PROPERTIES
-#     MACOSX_BUNDLE_GUI_IDENTIFIER my.vtk_pipeline.com
-#     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-#     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-#     MACOSX_BUNDLE TRUE
-#     WIN32_EXECUTABLE TRUE
-# )
+set_target_properties(vtk_pipeline PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.vtk_pipeline.com
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
