@@ -13,7 +13,7 @@ class vtkActorData : public NodeData
   public:
     vtkActorData() = default;
 
-    vtkActorData(vtkActorData* c)
+    vtkActorData(vtkActor* c)
         : _value(c)
     {
     }
@@ -24,8 +24,8 @@ class vtkActorData : public NodeData
 
     [[nodiscard]] auto getActor() const { return _value; }
 
-    auto setActor(vtkActorData* c) { _value = c; }
+    auto setActor(vtkActor* c) { _value = c; }
 
   private:
-    vtkActorData* _value;
+    vtkActor* _value;
 };
