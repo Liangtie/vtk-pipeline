@@ -26,38 +26,40 @@ QJsonObject vtkSliceSelector::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
 
-    modelJson["_dir"] = _slice_data->_dir;
-    modelJson["_prefix"] = _slice_data->_prefix;
-    modelJson["_start_idx"] = _slice_data->_start_idx;
-    modelJson["_end_idx"] = _slice_data->_end_idx;
+    modelJson["_dir"] = _slice_selector->getDir();
+    modelJson["_prefix"] = _slice_selector->getPrefix();
+    modelJson["_start_idx"] = _slice_selector->getStartIdx();
+    modelJson["_end_idx"] = _slice_selector->getEndIdx();
 
     return modelJson;
 }
 
 void vtkSliceSelector::load(QJsonObject const& p)
 {
-    {
-        QJsonValue v = p["_dir"];
-        if (!v.isUndefined()) {
-            _slice_data->_dir = v.toString();
+    if (_slice_selector) {
+        {
+            QJsonValue v = p["_dir"];
+            if (!v.isUndefined()) {
+                _slice_selector->setDir(v.toString());
+            }
         }
-    }
-    {
-        QJsonValue v = p["_prefix"];
-        if (!v.isUndefined()) {
-            _slice_data->_prefix = v.toString();
+        {
+            QJsonValue v = p["_prefix"];
+            if (!v.isUndefined()) {
+                _slice_selector->setPrefix(v.toString());
+            }
         }
-    }
-    {
-        QJsonValue v = p["_start_idx"];
-        if (!v.isUndefined()) {
-            _slice_data->_start_idx = v.toString().toInt();
+        {
+            QJsonValue v = p["_start_idx"];
+            if (!v.isUndefined()) {
+                _slice_selector->setStartIdx(v.toInt());
+            }
         }
-    }
-    {
-        QJsonValue v = p["_end_idx"];
-        if (!v.isUndefined()) {
-            _slice_data->_end_idx = v.toString().toInt();
+        {
+            QJsonValue v = p["_end_idx"];
+            if (!v.isUndefined()) {
+                _slice_selector->setEndIdx(v.toInt());
+            }
         }
     }
 }
@@ -105,11 +107,6 @@ QWidget* vtkSliceSelector::embeddedWidget()
 {
     if (!_slice_selector) {
         _slice_selector = new vtkSliceSelectorWidget();
-        _slice_selector->setMaximumSize(_slice_selector->sizeHint());
-        _slice_selector->setDir(_slice_data->_dir);
-        _slice_selector->setPrefix(_slice_data->_prefix);
-        _slice_selector->setStartIdx(_slice_data->_start_idx);
-        _slice_selector->setEndIdx(_slice_data->_end_idx);
         connect(_slice_selector,
                 &vtkSliceSelectorWidget::data_changed,
                 this,

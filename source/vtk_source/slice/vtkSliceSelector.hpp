@@ -37,10 +37,7 @@ class vtkSliceSelector
     ~vtkSliceSelector() override;
 
   public:
-    [[nodiscard]] QString caption() const override
-    {
-        return QStringLiteral("File Path Source");
-    }
+    [[nodiscard]] QString caption() const override { return class_id; }
 
     [[nodiscard]] bool captionVisible() const override { return true; }
 
