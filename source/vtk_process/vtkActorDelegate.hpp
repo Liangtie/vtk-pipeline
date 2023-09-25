@@ -6,7 +6,7 @@
 #include <qcolor.h>
 #include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
-
+#include <vtkActor.h>
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
 
@@ -65,7 +65,7 @@ class vtkActorDelegate
     QWidget* embeddedWidget() override;
 
   private:
-    vtkNew<vtkPolyDataMapper> _filter;
-    vtkAlgorithmOutput* _last_in {};
+    vtkNew<vtkActor> _filter;
+    vtkMapper* _last_in {};
     QColor _color = QColor(0, 0, 0);
 };

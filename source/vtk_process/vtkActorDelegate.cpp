@@ -5,22 +5,40 @@
 
 #include <qcolor.h>
 #include <qrgb.h>
+#include <vcruntime_string.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkContourFilter.h>
+#include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataNormals.h>
+#include <vtkProperty.h>
 
 #include <QtCore/QJsonValue>
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QLineEdit>
 
 #include "vtkActorDelegate.hpp"
+#include "vtk_mapper/vtkMapperData.hpp"
+#include "vtk_process/vtkActorData.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
+#include "vtk_source/color/ColorData.hpp"
 #include "vtk_source/decimal/DecimalData.hpp"
 
 enum
 {
     COLOR,
-    SRC,
+    MAPPER,
 
     INPUT_COUNT,
+};
+
+enum
+{
+    R,
+    G,
+    B,
 };
 
 vtkActorDelegate::vtkActorDelegate()
@@ -71,13 +89,12 @@ NodeDataType vtkActorDelegate::dataType(PortType t, PortIndex idx) const
         case QtNodes::PortType::In:
             switch (idx) {
                 case COLOR:
-                    return VtkAlgorithmOutputData().type();
-                case SRC:
-                    return VtkAlgorithmOutputData().type();
+                    return ColorData().type();
+                case MAPPER:
+                    return vtkMapperData().type();
             }
         case QtNodes::PortType::Out:
-            return VtkAlgorithmOutputData().type();
-
+            return vtkActorData().type();
         case QtNodes::PortType::None:
             break;
     }
@@ -87,18 +104,31 @@ NodeDataType vtkActorDelegate::dataType(PortType t, PortIndex idx) const
 
 std::shared_ptr<NodeData> vtkActorDelegate::outData(PortIndex)
 {
-    if (_filter->GetInput())
-        _filter->Update();
-    return std::make_shared<VtkAlgorithmOutputData>(_filter->GetOutputPort());
+    return std::make_shared<vtkActorData>(_filter.Get());
 }
 
-void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex)
+void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex idx)
 {
+    double rgb[3] {};
+    memcpy(rgb, _filter->GetProperty()->GetColor(), 3);
     _filter = vtkNew<vtkPolyDataMapper>();
-    if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
-        _filter->SetInputConnection(d->algorithmOutput());
-    _filter->SetInputConnection(_last_in);
-    _filter->ScalarVisibilityOff();
+    switch (idx) {
+        case COLOR:
+            if (auto c = std::dynamic_pointer_cast<ColorData>(data)) {
+                const auto col = c->getColor();
+                rgb[R] = col.red();
+                rgb[G] = col.green();
+                rgb[B] = col.blue();
+            }
+            break;
+        case MAPPER:
+            if (auto d = std::dynamic_pointer_cast<vtkMapperData>(data))
+                _filter->SetMapper(d->getValue());
+            break;
+    }
+
+    _filter->SetMapper(_last_in);
+    _filter->GetProperty()->SetColor(rgb);
     if (_last_in) {
         Q_EMIT dataUpdated(0);
     } else {
