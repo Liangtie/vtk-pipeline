@@ -23,14 +23,22 @@
 
 #include "constraint/item_in_view.hpp"
 #include "ui_mainwindow.h"
+#include "vtk_fitter/vtkContourFilterDelegate.hpp"
+#include "vtk_fitter/vtkOutlineFilterDelegate.hpp"
+#include "vtk_mapper/vtkPolyDataMapperDelegate.hpp"
 #include "vtk_output/gltf/vtkGLTFImporterDelegate.hpp"
 #include "vtk_output/image/vtkImageViewerDelegate.hpp"
+#include "vtk_output/render_window/vtkGenericOpenGLRenderWindowDelegate.hpp"
 #include "vtk_pipeline/data_view_light_style.hpp"
 #include "vtk_pipeline/vtk_pipeline_scene.hpp"
 #include "vtk_pipeline/vtk_pipeline_view.hpp"
+#include "vtk_process/vtkActorDelegate.hpp"
 #include "vtk_process/vtkImageResizeDelegate.hpp"
+#include "vtk_process/vtkPolyDataNormalsDelegate.hpp"
+#include "vtk_process/vtkRendererDelegate.hpp"
 #include "vtk_shapes/vtk_shape_category.hpp"
 #include "vtk_shapes/vtk_shapes_model.hpp"
+#include "vtk_source/color/vtkColorPicker.hpp"
 #include "vtk_source/decimal/NumberSourceDataModel.hpp"
 #include "vtk_source/file_path/vtkFilePathSelector.hpp"
 #include "vtk_source/jpg/vtkJPGReaderDelegate.hpp"
@@ -107,6 +115,7 @@ MainWindow::MainWindow(QWidget* parent)
             std::vector<std::shared_ptr<VtkBaseShape>> {
                 std::make_shared<NumberSourceDataModel>(),
                 std::make_shared<vtkFilePathSelector>(),
+                std::make_shared<vtkColorPicker>(),
                 std::make_shared<vtkJPGReaderDelegate>(),
                 std::make_shared<vtkPNGReaderDelegate>(),
                 std::make_shared<vtkSliceSelector>(),
@@ -118,13 +127,19 @@ MainWindow::MainWindow(QWidget* parent)
             "Mapper",
             QString {},
             QIcon(":/style/icon/mapper.png"),
-            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+            std::vector<std::shared_ptr<VtkBaseShape>> {
+                std::make_shared<vtkPolyDataMapperDelegate>(),
+
+            }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
             "Fitter",
             QString {},
             QIcon(":/style/icon/filter.png"),
-            std::vector<std::shared_ptr<VtkBaseShape>> {}));
+            std::vector<std::shared_ptr<VtkBaseShape>> {
+                std::make_shared<vtkContourFilterDelegate>(),
+                std::make_shared<vtkOutlineFilterDelegate>(),
+            }));
 
         shapes.push_back(std::make_shared<VtkShapeCategory>(
             "Process",
@@ -132,6 +147,9 @@ MainWindow::MainWindow(QWidget* parent)
             QIcon(":/style/icon/process.png"),
             std::vector<std::shared_ptr<VtkBaseShape>> {
                 std::make_shared<vtkImageResizeDelegate>(),
+                std::make_shared<vtkPolyDataNormalsDelegate>(),
+                std::make_shared<vtkRendererDelegate>(),
+                std::make_shared<vtkActorDelegate>(),
 
             }));
 
@@ -142,6 +160,8 @@ MainWindow::MainWindow(QWidget* parent)
             std::vector<std::shared_ptr<VtkBaseShape>> {
                 std::make_shared<vtkImageViewerDelegate>(),
                 std::make_shared<vtkGLTFImporterDelegate>(),
+                std::make_shared<vtkGenericOpenGLRenderWindowDelegate>(),
+
             }));
 
         _vtk_shapes_model =
@@ -184,16 +204,27 @@ MainWindow::MainWindow(QWidget* parent)
             auto ret = std::make_shared<NodeDelegateModelRegistry>();
             ret->registerModel<NumberSourceDataModel>("Dataset");
             ret->registerModel<vtkFilePathSelector>("Dataset");
+            ret->registerModel<vtkColorPicker>("Dataset");
             ret->registerModel<vtkJPGReaderDelegate>("Dataset");
             ret->registerModel<vtkPNGReaderDelegate>("Dataset");
             ret->registerModel<vtkSliceSelector>("Dataset");
             ret->registerModel<vtkVolume16ReaderDelegate>("Dataset");
 
+            ret->registerModel<vtkContourFilterDelegate>("Fitter");
+            ret->registerModel<vtkOutlineFilterDelegate>("Fitter");
 
             ret->registerModel<vtkImageResizeDelegate>("Process");
+            ret->registerModel<vtkPolyDataNormalsDelegate>("Process");
+            ret->registerModel<vtkRendererDelegate>("Process");
+            ret->registerModel<vtkActorDelegate>("Process");
+
+
+            ret->registerModel<vtkPolyDataMapperDelegate>("Mapper");
 
             ret->registerModel<vtkImageViewerDelegate>("Output");
             ret->registerModel<vtkGLTFImporterDelegate>("Output");
+            ret->registerModel<vtkGenericOpenGLRenderWindowDelegate>("Output");
+
 
             return ret;
         })();

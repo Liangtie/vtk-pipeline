@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/">  
         <file>style/qss/flatwhite.css</file>
         <file>style/qss/flatwhite/add_bottom.png</file>
         <file>style/qss/flatwhite/add_left.png</file>
@@ -25,6 +25,7 @@
         <file>style/icon/open.png</file>
         <file>style/icon/save.png</file>
         <file>style/icon/close.png</file>
+        <file>style/icon/pick_color.png</file>
         <file>style/icon/about.png</file>
         <file>style/icon/settings.png</file>
         <file>style/icon/VTK.png</file>

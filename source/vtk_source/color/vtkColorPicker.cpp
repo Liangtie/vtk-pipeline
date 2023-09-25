@@ -2,14 +2,20 @@
 
 #include "vtkColorPicker.hpp"
 
+#include <qabstractbutton.h>
 #include <qcolor.h>
 #include <qcolordialog.h>
+#include <qicon.h>
+#include <qlabel.h>
+#include <qtoolbutton.h>
+#include <qwidget.h>
 
 #include <QtCore/QJsonValue>
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QLineEdit>
 
 #include "ColorData.hpp"
+#include "utils/flat_style.hpp"
 #include "vtkColorPicker.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/color/ColorData.hpp"
@@ -21,14 +27,17 @@ vtkColorPicker::vtkColorPicker()
 {
 }
 
-vtkColorPicker::~vtkColorPicker() {}
+vtkColorPicker::~vtkColorPicker()
+{
+    if (_lineEdit)
+        delete _lineEdit;
+}
 
 QJsonObject vtkColorPicker::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
 
     modelJson["color"] = static_cast<int>(_file_path->getColor().rgb());
-
     return modelJson;
 }
 
@@ -90,6 +99,13 @@ QWidget* vtkColorPicker::embeddedWidget()
                 this,
                 &vtkColorPicker::onColorChanged);
     }
+    if (!_btn) {
+        _btn = new QToolButton();
+        _btn->setIcon(QIcon(":/style/icon/pick_color.png"));
+        setupFlatStyle(_btn);
+        connect(
+            _btn, &QAbstractButton::clicked, _lineEdit, &QColorDialog::exec);
+    }
 
-    return _lineEdit;
+    return _btn;
 }

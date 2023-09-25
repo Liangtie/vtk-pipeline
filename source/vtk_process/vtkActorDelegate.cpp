@@ -111,7 +111,7 @@ void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex idx)
 {
     double rgb[3] {};
     memcpy(rgb, _filter->GetProperty()->GetColor(), 3);
-    _filter = vtkNew<vtkPolyDataMapper>();
+    _filter = vtkNew<vtkActor>();
     switch (idx) {
         case COLOR:
             if (auto c = std::dynamic_pointer_cast<ColorData>(data)) {

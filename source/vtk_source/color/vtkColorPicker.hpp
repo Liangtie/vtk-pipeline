@@ -3,6 +3,9 @@
 #include <QColorDialog>
 #include <iostream>
 
+#include <qpushbutton.h>
+#include <qtoolbutton.h>
+
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
 
@@ -70,6 +73,7 @@ class vtkColorPicker
 
   private:
     std::shared_ptr<ColorData> _file_path;
+    QToolButton* _btn = nullptr;
 
     QColorDialog* _lineEdit;
 };
