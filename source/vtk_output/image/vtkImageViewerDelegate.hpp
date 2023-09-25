@@ -46,7 +46,7 @@ class vtkImageViewerDelegate
         return QStringLiteral("VTK Image Viewer");
     }
 
-    [[nodiscard]] bool captionVisible() const override { return false; }
+    [[nodiscard]] bool captionVisible() const override { return true; }
 
     [[nodiscard]] QString name() const override { return class_id; }
 

@@ -8,6 +8,7 @@
 #include <QtWidgets/QLineEdit>
 
 #include "vtkPolyDataMapperDelegate.hpp"
+#include "vtk_mapper/vtkMapperData.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
 #include "vtk_source/decimal/DecimalData.hpp"
@@ -63,16 +64,24 @@ unsigned int vtkPolyDataMapperDelegate::nPorts(PortType portType) const
     return result;
 }
 
-NodeDataType vtkPolyDataMapperDelegate::dataType(PortType, PortIndex) const
+NodeDataType vtkPolyDataMapperDelegate::dataType(PortType t, PortIndex) const
 {
-    return VtkAlgorithmOutputData().type();
+    switch (t) {
+        case QtNodes::PortType::In:
+            return VtkAlgorithmOutputData().type();
+        case QtNodes::PortType::Out:
+            return vtkMapperData().type();
+        case QtNodes::PortType::None:
+            break;
+    }
+    return {};
 }
 
 std::shared_ptr<NodeData> vtkPolyDataMapperDelegate::outData(PortIndex)
 {
     if (_filter->GetInput())
         _filter->Update();
-    return std::make_shared<VtkAlgorithmOutputData>(_filter->GetOutputPort());
+    return std::make_shared<vtkMapperData>(_filter);
 }
 
 void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,

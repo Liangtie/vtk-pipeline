@@ -25,7 +25,7 @@ class vtkOutlineFilterDelegate
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkPolyDataMapper";
+    static constexpr auto class_id = "vtkOutlineFilter";
     [[nodiscard]] auto type() const -> VtkShapeType override
     {
         return class_id;
@@ -38,10 +38,10 @@ class vtkOutlineFilterDelegate
   public:
     [[nodiscard]] QString caption() const override
     {
-        return QStringLiteral("vtkPolyDataMapper");
+        return QStringLiteral("vtkOutlineFilter");
     }
 
-    [[nodiscard]] bool captionVisible() const override { return false; }
+    [[nodiscard]] bool captionVisible() const override { return true; }
 
     [[nodiscard]] QString name() const override { return class_id; }
 

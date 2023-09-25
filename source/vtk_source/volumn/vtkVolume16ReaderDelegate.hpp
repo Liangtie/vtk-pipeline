@@ -37,6 +37,8 @@ class vtkVolume16ReaderDelegate : public GenericSourceReader
 
     [[nodiscard]] QString name() const override { return class_id; }
 
+    [[nodiscard]] unsigned int nPorts(PortType portType) const override;
+
   public:
     [[nodiscard]] QJsonObject save() const override;
 

@@ -20,6 +20,18 @@ vtkVolume16ReaderDelegate::vtkVolume16ReaderDelegate()
 
 vtkVolume16ReaderDelegate::~vtkVolume16ReaderDelegate() {}
 
+unsigned int vtkVolume16ReaderDelegate::nPorts(PortType portType) const
+{
+    switch (portType) {
+        case QtNodes::PortType::In:
+            return 1;
+        case QtNodes::PortType::Out:
+            return 3;
+        case QtNodes::PortType::None:
+            break;
+    }
+}
+
 QJsonObject vtkVolume16ReaderDelegate::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();

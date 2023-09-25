@@ -4,9 +4,10 @@
 #include <iostream>
 
 #include <qcolor.h>
+#include <vtkActor.h>
 #include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
+
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
 
@@ -43,7 +44,7 @@ class vtkActorDelegate
         return QStringLiteral("vtkActor");
     }
 
-    [[nodiscard]] bool captionVisible() const override { return false; }
+    [[nodiscard]] bool captionVisible() const override { return true; }
 
     [[nodiscard]] QString name() const override { return class_id; }
 

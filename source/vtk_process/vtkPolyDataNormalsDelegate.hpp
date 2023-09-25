@@ -41,7 +41,7 @@ class vtkPolyDataNormalsDelegate
         return QStringLiteral("vtkPolyDataNormals");
     }
 
-    [[nodiscard]] bool captionVisible() const override { return false; }
+    [[nodiscard]] bool captionVisible() const override { return true; }
 
     [[nodiscard]] QString name() const override { return class_id; }
 

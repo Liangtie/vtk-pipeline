@@ -218,7 +218,6 @@ MainWindow::MainWindow(QWidget* parent)
             ret->registerModel<vtkRendererDelegate>("Process");
             ret->registerModel<vtkActorDelegate>("Process");
 
-
             ret->registerModel<vtkPolyDataMapperDelegate>("Mapper");
 
             ret->registerModel<vtkImageViewerDelegate>("Output");

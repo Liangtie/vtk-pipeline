@@ -46,7 +46,7 @@ class vtkRendererDelegate
         return QStringLiteral("vtkRenderer");
     }
 
-    [[nodiscard]] bool captionVisible() const override { return false; }
+    [[nodiscard]] bool captionVisible() const override { return true; }
 
     [[nodiscard]] QString name() const override { return class_id; }
 
