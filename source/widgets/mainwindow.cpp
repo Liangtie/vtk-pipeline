@@ -19,6 +19,7 @@
 #include <qsizepolicy.h>
 #include <qsortfilterproxymodel.h>
 #include <qwidget.h>
+#include <vtkVolume16Reader.h>
 
 #include "constraint/item_in_view.hpp"
 #include "ui_mainwindow.h"
@@ -34,6 +35,8 @@
 #include "vtk_source/file_path/vtkFilePathSelector.hpp"
 #include "vtk_source/jpg/vtkJPGReaderDelegate.hpp"
 #include "vtk_source/png/vtkPNGReaderDelegate.hpp"
+#include "vtk_source/slice/vtkSliceSelector.hpp"
+#include "vtk_source/volumn/vtkVolume16ReaderDelegate.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_model.hpp"
 #include "widgets/bottom_left_menu/bottom_left_menu_view.hpp"
 #include "widgets/mainwindow.h"
@@ -106,6 +109,8 @@ MainWindow::MainWindow(QWidget* parent)
                 std::make_shared<vtkFilePathSelector>(),
                 std::make_shared<vtkJPGReaderDelegate>(),
                 std::make_shared<vtkPNGReaderDelegate>(),
+                std::make_shared<vtkSliceSelector>(),
+                std::make_shared<vtkVolume16ReaderDelegate>(),
 
             }));
 
@@ -181,6 +186,9 @@ MainWindow::MainWindow(QWidget* parent)
             ret->registerModel<vtkFilePathSelector>("Dataset");
             ret->registerModel<vtkJPGReaderDelegate>("Dataset");
             ret->registerModel<vtkPNGReaderDelegate>("Dataset");
+            ret->registerModel<vtkSliceSelector>("Dataset");
+            ret->registerModel<vtkVolume16ReaderDelegate>("Dataset");
+
 
             ret->registerModel<vtkImageResizeDelegate>("Process");
 

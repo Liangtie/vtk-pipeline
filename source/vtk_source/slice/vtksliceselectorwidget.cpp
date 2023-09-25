@@ -10,6 +10,7 @@
 #include <qvalidator.h>
 
 #include "ui_vtksliceselectorwidget.h"
+#include "utils/flat_style.hpp"
 #include "vtksliceselectorwidget.h"
 
 vtkSliceSelectorWidget::vtkSliceSelectorWidget(QWidget* parent)
@@ -18,6 +19,7 @@ vtkSliceSelectorWidget::vtkSliceSelectorWidget(QWidget* parent)
 {
     ui->setupUi(this);
 
+    setupFlatStyle(ui->btn_select_dir);
     connect(ui->btn_select_dir,
             &QAbstractButton::clicked,
             this,

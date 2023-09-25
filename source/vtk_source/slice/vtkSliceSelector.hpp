@@ -7,7 +7,7 @@
 
 #include "vtk_shapes/vtk_shape.hpp"
 
-class SliceData;
+struct SliceData;
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;

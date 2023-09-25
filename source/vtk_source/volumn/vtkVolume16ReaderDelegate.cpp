@@ -9,7 +9,7 @@
 #include <QtWidgets/QFileDialog>
 
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
-#include "vtk_source/file_path/FilePathData.hpp"
+#include "vtk_source/slice/SliceData.hpp"
 #include "vtk_source/vtkAlgorithmOutputData.hpp"
 
 vtkVolume16ReaderDelegate::vtkVolume16ReaderDelegate()
@@ -44,7 +44,7 @@ NodeDataType vtkVolume16ReaderDelegate::dataType(PortType const t,
 {
     switch (t) {
         case QtNodes::PortType::In:
-            return FilePathData().type();
+            return SliceData().type();
         case QtNodes::PortType::Out:
             return VtkAlgorithmOutputData().type();
             break;
@@ -57,20 +57,26 @@ NodeDataType vtkVolume16ReaderDelegate::dataType(PortType const t,
 std::shared_ptr<NodeData> vtkVolume16ReaderDelegate::outData(PortIndex idx)
 {
     Q_UNUSED(idx)
-    _reader->Update();
-    return std::make_shared<VtkAlgorithmOutputData>(_reader->GetOutputPort());
+    if (_reader->GetInput()) {
+        _reader->Update();
+        return std::make_shared<VtkAlgorithmOutputData>(
+            _reader->GetOutputPort());
+    }
+    return {};
 }
 
 void vtkVolume16ReaderDelegate::setInData(std::shared_ptr<NodeData> data,
                                           PortIndex const portIndex)
 {
     Q_UNUSED(portIndex)
-
-    if (auto fp = std::dynamic_pointer_cast<FilePathData>(data)) {
-        _reader->SetFilePrefix(fp->filePath().toStdString().data());
-        _reader->SetImageRange(1, 1);
+    if (auto slice = std::dynamic_pointer_cast<SliceData>(data)) {
+        _reader = vtkNew<vtkVolume16Reader>();
+        _reader->SetFilePrefix(slice->getPrefix().toStdString().data());
+        _reader->SetImageRange(slice->_start_idx, slice->_end_idx);
+        _reader->SetDataDimensions(64, 64);
+        _reader->SetDataByteOrderToLittleEndian();
+        _reader->SetDataSpacing(3.2, 3.2, 1.5);
         Q_EMIT dataUpdated(0);
-
     } else {
         Q_EMIT dataInvalidated(0);
     }
