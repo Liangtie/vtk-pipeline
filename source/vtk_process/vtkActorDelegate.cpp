@@ -1,52 +1,54 @@
 #include <QFile>
 #include <memory>
 
-#include "vtkPolyDataMapperDelegate.hpp"
+#include "vtkActorDelegate.hpp"
+
+#include <qcolor.h>
+#include <qrgb.h>
 
 #include <QtCore/QJsonValue>
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QLineEdit>
 
-#include "vtkPolyDataMapperDelegate.hpp"
+#include "vtkActorDelegate.hpp"
 #include "vtk_shapes/vtk_shape.hpp"
 #include "vtk_source/VtkAlgorithmOutputData.hpp"
 #include "vtk_source/decimal/DecimalData.hpp"
 
 enum
 {
+    COLOR,
     SRC,
 
     INPUT_COUNT,
 };
 
-vtkPolyDataMapperDelegate::vtkPolyDataMapperDelegate()
+vtkActorDelegate::vtkActorDelegate()
     : VtkShape(class_id)
 {
 }
 
-vtkPolyDataMapperDelegate::~vtkPolyDataMapperDelegate() {}
+vtkActorDelegate::~vtkActorDelegate() {}
 
-QJsonObject vtkPolyDataMapperDelegate::save() const
+QJsonObject vtkActorDelegate::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
-
-    modelJson["_featureAngle"] = _featureAngle;
-
+    modelJson["_color"] = static_cast<int>(_color.rgb());
     return modelJson;
 }
 
-void vtkPolyDataMapperDelegate::load(QJsonObject const& p)
+void vtkActorDelegate::load(QJsonObject const& p)
 {
     {
-        QJsonValue v = p["_featureAngle"];
+        QJsonValue v = p["_color"];
 
         if (!v.isUndefined()) {
-            _featureAngle = v.toDouble();
+            _color = QColor(v.toInt());
         }
     }
 }
 
-unsigned int vtkPolyDataMapperDelegate::nPorts(PortType portType) const
+unsigned int vtkActorDelegate::nPorts(PortType portType) const
 {
     unsigned int result = 1;
 
@@ -63,20 +65,34 @@ unsigned int vtkPolyDataMapperDelegate::nPorts(PortType portType) const
     return result;
 }
 
-NodeDataType vtkPolyDataMapperDelegate::dataType(PortType, PortIndex) const
+NodeDataType vtkActorDelegate::dataType(PortType t, PortIndex idx) const
 {
-    return VtkAlgorithmOutputData().type();
+    switch (t) {
+        case QtNodes::PortType::In:
+            switch (idx) {
+                case COLOR:
+                    return VtkAlgorithmOutputData().type();
+                case SRC:
+                    return VtkAlgorithmOutputData().type();
+            }
+        case QtNodes::PortType::Out:
+            return VtkAlgorithmOutputData().type();
+
+        case QtNodes::PortType::None:
+            break;
+    }
+
+    return {};
 }
 
-std::shared_ptr<NodeData> vtkPolyDataMapperDelegate::outData(PortIndex)
+std::shared_ptr<NodeData> vtkActorDelegate::outData(PortIndex)
 {
     if (_filter->GetInput())
         _filter->Update();
     return std::make_shared<VtkAlgorithmOutputData>(_filter->GetOutputPort());
 }
 
-void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,
-                                          PortIndex)
+void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex)
 {
     _filter = vtkNew<vtkPolyDataMapper>();
     if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
@@ -90,7 +106,7 @@ void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,
     }
 }
 
-QWidget* vtkPolyDataMapperDelegate::embeddedWidget()
+QWidget* vtkActorDelegate::embeddedWidget()
 {
     return {};
 }

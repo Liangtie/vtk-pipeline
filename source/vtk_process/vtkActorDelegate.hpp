@@ -1,9 +1,11 @@
 #pragma once
 
+#include <QColor>
 #include <iostream>
 
-#include <vtkContourFilter.h>
+#include <qcolor.h>
 #include <vtkNew.h>
+#include <vtkPolyDataMapper.h>
 
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
@@ -18,29 +20,27 @@ using QtNodes::NodeDelegateModel;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
 
-/// The model dictates the number of inputs and outputs for the Node.
-/// In this example it has no logic.
-class vtkContourFilterDelegate
+class vtkActorDelegate
     : public NodeDelegateModel
     , public VtkShape
 {
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkContourFilter";
+    static constexpr auto class_id = "vtkActor";
     [[nodiscard]] auto type() const -> VtkShapeType override
     {
         return class_id;
     }
 
-    vtkContourFilterDelegate();
+    vtkActorDelegate();
 
-    ~vtkContourFilterDelegate() override;
+    ~vtkActorDelegate() override;
 
   public:
     [[nodiscard]] QString caption() const override
     {
-        return QStringLiteral("vtkContourFilter");
+        return QStringLiteral("vtkActor");
     }
 
     [[nodiscard]] bool captionVisible() const override { return false; }
@@ -65,7 +65,7 @@ class vtkContourFilterDelegate
     QWidget* embeddedWidget() override;
 
   private:
-    vtkNew<vtkContourFilter> _filter;
+    vtkNew<vtkPolyDataMapper> _filter;
     vtkAlgorithmOutput* _last_in {};
-    double _value = 500;
+    QColor _color = QColor(0, 0, 0);
 };

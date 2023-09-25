@@ -1,16 +1,14 @@
 #pragma once
 
+#include <QColorDialog>
 #include <iostream>
-
-#include <vtkContourFilter.h>
-#include <vtkNew.h>
 
 #include <QtCore/QObject>
 #include <QtNodes/NodeDelegateModel>
 
 #include "vtk_shapes/vtk_shape.hpp"
 
-class VtkAlgorithmOutputData;
+class ColorData;
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;
@@ -18,29 +16,31 @@ using QtNodes::NodeDelegateModel;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
 
+class VtkFilePathSelectorWidget;
+
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
-class vtkContourFilterDelegate
+class vtkColorPicker
     : public NodeDelegateModel
     , public VtkShape
 {
     Q_OBJECT
 
   public:
-    static constexpr auto class_id = "vtkContourFilter";
+    static constexpr auto class_id = "vtkColorPicker";
     [[nodiscard]] auto type() const -> VtkShapeType override
     {
         return class_id;
     }
 
-    vtkContourFilterDelegate();
+    vtkColorPicker();
 
-    ~vtkContourFilterDelegate() override;
+    ~vtkColorPicker() override;
 
   public:
     [[nodiscard]] QString caption() const override
     {
-        return QStringLiteral("vtkContourFilter");
+        return QStringLiteral("File Path Source");
     }
 
     [[nodiscard]] bool captionVisible() const override { return false; }
@@ -60,12 +60,16 @@ class vtkContourFilterDelegate
 
     std::shared_ptr<NodeData> outData(PortIndex port) override;
 
-    void setInData(std::shared_ptr<NodeData>, PortIndex) override;
+    void setInData(std::shared_ptr<NodeData>, PortIndex) override {}
 
     QWidget* embeddedWidget() override;
 
+  private Q_SLOTS:
+
+    void onColorChanged(QColor const& string);
+
   private:
-    vtkNew<vtkContourFilter> _filter;
-    vtkAlgorithmOutput* _last_in {};
-    double _value = 500;
+    std::shared_ptr<ColorData> _file_path;
+
+    QColorDialog* _lineEdit;
 };
