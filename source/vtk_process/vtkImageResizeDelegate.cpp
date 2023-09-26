@@ -134,10 +134,17 @@ std::shared_ptr<NodeData> vtkImageResizeDelegate::outData(PortIndex)
     return {};
 }
 
+inline auto ensure_not_zero(int num)
+{
+    if (!num)
+        return -1;
+    return num;
+}
+
 void vtkImageResizeDelegate::setInData(std::shared_ptr<NodeData> data,
                                        PortIndex idx)
 {
-    int new_dims[3] {0};
+    int new_dims[3] {-1};
     memcpy(new_dims, _image_resize->GetOutputDimensions(), 3);
     switch (idx) {
         case x:
@@ -160,7 +167,9 @@ void vtkImageResizeDelegate::setInData(std::shared_ptr<NodeData> data,
     }
     _image_resize = vtkNew<vtkImageResize>();
     _image_resize->SetInputConnection(_last_in);
-    _image_resize->SetOutputDimensions(new_dims[x], new_dims[y], new_dims[z]);
+    _image_resize->SetOutputDimensions(ensure_not_zero(new_dims[x]),
+                                       ensure_not_zero(new_dims[y]),
+                                       ensure_not_zero(new_dims[z]));
     Q_EMIT dataUpdated(0);
 }
 
