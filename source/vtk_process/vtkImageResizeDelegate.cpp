@@ -163,6 +163,8 @@ void vtkImageResizeDelegate::setInData(std::shared_ptr<NodeData> data,
             if (auto d =
                     std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
                 _last_in = d->algorithmOutput();
+            else
+                _last_in = nullptr;
             break;
     }
     _image_resize = vtkNew<vtkImageResize>();

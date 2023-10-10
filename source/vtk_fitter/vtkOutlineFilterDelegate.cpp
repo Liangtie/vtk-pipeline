@@ -68,6 +68,8 @@ void vtkOutlineFilterDelegate::setInData(std::shared_ptr<NodeData> data,
     _filter = vtkNew<vtkOutlineFilter>();
     if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
         _last_in = d->algorithmOutput();
+    else
+        _last_in = nullptr;
     _filter->SetInputConnection(_last_in);
     if (_last_in) {
         Q_EMIT dataUpdated(0);

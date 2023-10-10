@@ -123,6 +123,8 @@ void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex idx)
         case ACTOR_ONE:
             if (auto d = std::dynamic_pointer_cast<vtkMapperData>(data))
                 _last_in = d->getValue();
+            else
+                _last_in = nullptr;
             break;
     }
 

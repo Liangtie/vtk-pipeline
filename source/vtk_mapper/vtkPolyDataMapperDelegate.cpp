@@ -90,6 +90,8 @@ void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,
     _filter = vtkNew<vtkPolyDataMapper>();
     if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
         _last_in = d->algorithmOutput();
+    else
+        _last_in = nullptr;
     _filter->SetInputConnection(_last_in);
     // _filter->ScalarVisibilityOff();
     if (_last_in) {
