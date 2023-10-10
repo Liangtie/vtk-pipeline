@@ -26,7 +26,7 @@ unsigned int vtkVolume16ReaderDelegate::nPorts(PortType portType) const
         case QtNodes::PortType::In:
             return 1;
         case QtNodes::PortType::Out:
-            return 3;
+            return 1;
         case QtNodes::PortType::None:
             break;
     }

@@ -22,6 +22,7 @@ enum
 vtkPolyDataNormalsDelegate::vtkPolyDataNormalsDelegate()
     : VtkShape(class_id)
 {
+    _filter->SetFeatureAngle(_featureAngle);
 }
 
 vtkPolyDataNormalsDelegate::~vtkPolyDataNormalsDelegate() {}

@@ -65,5 +65,5 @@ class vtkOutlineFilterDelegate
   private:
     vtkNew<vtkOutlineFilter> _filter;
     vtkAlgorithmOutput* _last_in {};
-    double _featureAngle = 60.0;
+
 };

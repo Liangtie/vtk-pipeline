@@ -21,6 +21,7 @@ enum
 vtkOutlineFilterDelegate::vtkOutlineFilterDelegate()
     : VtkShape(class_id)
 {
+
 }
 
 vtkOutlineFilterDelegate::~vtkOutlineFilterDelegate() {}
@@ -28,11 +29,13 @@ vtkOutlineFilterDelegate::~vtkOutlineFilterDelegate() {}
 QJsonObject vtkOutlineFilterDelegate::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
-
     return modelJson;
 }
 
-void vtkOutlineFilterDelegate::load(QJsonObject const& p) {}
+void vtkOutlineFilterDelegate::load(QJsonObject const& p)
+{
+
+}
 
 unsigned int vtkOutlineFilterDelegate::nPorts(PortType portType) const
 {

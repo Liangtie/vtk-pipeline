@@ -36,7 +36,7 @@ vtkGLTFImporterDelegate::vtkGLTFImporterDelegate()
 }
 vtkGLTFImporterDelegate::~vtkGLTFImporterDelegate()
 {
-    _renderWindowInteractor.Reset();
+    // _renderWindowInteractor.Reset();
     _renderer.Reset();
     _renWin->Finalize();
     if (_vtk_widget)
@@ -120,9 +120,9 @@ void vtkGLTFImporterDelegate::setInData(std::shared_ptr<NodeData> data,
         _renderer->UseHiddenLineRemovalOn();
         if (_renWin) {
             _renWin->AddRenderer(_renderer);
-            _renderWindowInteractor = vtkNew<vtkRenderWindowInteractor>();
-            _renderWindowInteractor->SetRenderWindow(_renWin);
-            _renderWindowInteractor->SetInteractorStyle(_style);
+            // _renderWindowInteractor = vtkNew<vtkRenderWindowInteractor>();
+            // _renderWindowInteractor->SetRenderWindow(_renWin);
+            // _renderWindowInteractor->SetInteractorStyle(_style);
             _gLTFImporter->SetRenderWindow(_renWin);
             _gLTFImporter->Update();
             _headLight = vtkNew<vtkLight>();
@@ -135,7 +135,7 @@ void vtkGLTFImporterDelegate::setInData(std::shared_ptr<NodeData> data,
             _renderer->GetActiveCamera()->Elevation(30);
             _renderer->ResetCameraClippingRange();
             _renWin->Render();
-            _renderWindowInteractor->Start();
+            // _renderWindowInteractor->Start();
         }
     }
 

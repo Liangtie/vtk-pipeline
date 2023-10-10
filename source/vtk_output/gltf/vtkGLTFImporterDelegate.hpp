@@ -75,7 +75,7 @@ class vtkGLTFImporterDelegate
     vtkNew<vtkGenericOpenGLRenderWindow> _renWin;
     EmbeddedQVTKRenderWidget* _vtk_widget;
     vtkNew<vtkRenderer> _renderer;
-    vtkNew<vtkRenderWindowInteractor> _renderWindowInteractor;
+    // vtkNew<vtkRenderWindowInteractor> _renderWindowInteractor;
     vtkNew<vtkLight> _headLight;
     vtkNew<vtkInteractorStyleTrackballCamera> _style;
 };

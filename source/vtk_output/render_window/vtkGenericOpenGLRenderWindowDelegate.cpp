@@ -34,7 +34,7 @@ vtkGenericOpenGLRenderWindowDelegate::vtkGenericOpenGLRenderWindowDelegate()
 }
 vtkGenericOpenGLRenderWindowDelegate::~vtkGenericOpenGLRenderWindowDelegate()
 {
-    _renderWindowInteractor.Reset();
+    // _renderWindowInteractor->Disable();
     _renWin->Finalize();
     if (_vtk_widget)
         _vtk_widget->close();
@@ -98,14 +98,15 @@ void vtkGenericOpenGLRenderWindowDelegate::setInData(
             _renWin = vtkNew<vtkGenericOpenGLRenderWindow>();
             _vtk_widget->setRenderWindow(_renWin);
             _renWin->AddRenderer(fp->getValue());
-            _renderWindowInteractor = vtkNew<vtkRenderWindowInteractor>();
-            _renderWindowInteractor->SetRenderWindow(_renWin);
+            // _renderWindowInteractor = vtkNew<vtkRenderWindowInteractor>();
+            // _renderWindowInteractor->SetRenderWindow(_renWin);
             _renWin->Render();
-            _renderWindowInteractor->Start();
+            // _renderWindowInteractor->Start();
         }
     }
-    if (auto item = dynamic_cast<QGraphicsObject*>(_vtk_widget->parent())) {
-        if (auto scene = item->scene())
-            scene->update();
-    }
+    if (_vtk_widget)
+        if (auto item = dynamic_cast<QGraphicsObject*>(_vtk_widget->parent())) {
+            if (auto scene = item->scene())
+                scene->update();
+        }
 }

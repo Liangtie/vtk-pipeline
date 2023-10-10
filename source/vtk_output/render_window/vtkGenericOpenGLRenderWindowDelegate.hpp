@@ -73,5 +73,5 @@ class vtkGenericOpenGLRenderWindowDelegate
   private:
     vtkNew<vtkGenericOpenGLRenderWindow> _renWin;
     EmbeddedQVTKRenderWidget* _vtk_widget;
-    vtkNew<vtkRenderWindowInteractor> _renderWindowInteractor;
+    // vtkNew<vtkRenderWindowInteractor> _renderWindowInteractor;
 };

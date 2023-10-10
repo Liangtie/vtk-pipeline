@@ -36,7 +36,6 @@ vtkColorPicker::~vtkColorPicker()
 QJsonObject vtkColorPicker::save() const
 {
     QJsonObject modelJson = NodeDelegateModel::save();
-
     modelJson["color"] = static_cast<int>(_file_path->getColor().rgb());
     return modelJson;
 }
@@ -44,7 +43,6 @@ QJsonObject vtkColorPicker::save() const
 void vtkColorPicker::load(QJsonObject const& p)
 {
     QJsonValue v = p["color"];
-
     if (!v.isUndefined()) {
         _file_path->setColor(QColor(v.toInt()));
     }
