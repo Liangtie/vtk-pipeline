@@ -104,14 +104,13 @@ NodeDataType vtkActorDelegate::dataType(PortType t, PortIndex idx) const
 
 std::shared_ptr<NodeData> vtkActorDelegate::outData(PortIndex)
 {
-    return std::make_shared<vtkActorData>(_filter.Get());
+    return std::make_shared<vtkActorData>(_actor.Get());
 }
 
 void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex idx)
 {
     double rgb[3] {};
-    memcpy(rgb, _filter->GetProperty()->GetColor(), 3);
-    _filter = vtkNew<vtkActor>();
+    memcpy(rgb, _actor->GetProperty()->GetColor(), 3);
     switch (idx) {
         case COLOR:
             if (auto c = std::dynamic_pointer_cast<ColorData>(data)) {
@@ -123,12 +122,12 @@ void vtkActorDelegate::setInData(std::shared_ptr<NodeData> data, PortIndex idx)
             break;
         case ACTOR_ONE:
             if (auto d = std::dynamic_pointer_cast<vtkMapperData>(data))
-                _filter->SetMapper(d->getValue());
+                _last_in = d->getValue();
             break;
     }
 
-    _filter->SetMapper(_last_in);
-    _filter->GetProperty()->SetColor(rgb);
+    _actor->SetMapper(_last_in);
+    _actor->GetProperty()->SetColor(rgb);
     if (_last_in) {
         Q_EMIT dataUpdated(0);
     } else {

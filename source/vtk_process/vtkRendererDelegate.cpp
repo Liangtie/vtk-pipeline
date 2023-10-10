@@ -152,6 +152,8 @@ void vtkRendererDelegate::setInData(std::shared_ptr<NodeData> data,
         _Camera->Elevation(30.0);
         _filter->SetActiveCamera(_Camera);
         _filter->ResetCamera();
+        _Camera->Dolly(1.5);
+        _filter->ResetCameraClippingRange();
         Q_EMIT dataUpdated(0);
     } else {
         Q_EMIT dataInvalidated(0);

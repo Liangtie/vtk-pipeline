@@ -66,7 +66,7 @@ class vtkActorDelegate
     QWidget* embeddedWidget() override;
 
   private:
-    vtkNew<vtkActor> _filter;
+    vtkNew<vtkActor> _actor;
     vtkMapper* _last_in {};
     QColor _color = QColor(0, 0, 0);
 };

@@ -27,5 +27,5 @@ class vtkActorData : public NodeData
     auto setActor(vtkActor* c) { _value = c; }
 
   private:
-    vtkActor* _value;
+    vtkActor* _value = nullptr;
 };

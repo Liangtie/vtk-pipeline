@@ -21,7 +21,6 @@ enum
 vtkOutlineFilterDelegate::vtkOutlineFilterDelegate()
     : VtkShape(class_id)
 {
-
 }
 
 vtkOutlineFilterDelegate::~vtkOutlineFilterDelegate() {}
@@ -32,10 +31,7 @@ QJsonObject vtkOutlineFilterDelegate::save() const
     return modelJson;
 }
 
-void vtkOutlineFilterDelegate::load(QJsonObject const& p)
-{
-
-}
+void vtkOutlineFilterDelegate::load(QJsonObject const& p) {}
 
 unsigned int vtkOutlineFilterDelegate::nPorts(PortType portType) const
 {
@@ -71,7 +67,7 @@ void vtkOutlineFilterDelegate::setInData(std::shared_ptr<NodeData> data,
 {
     _filter = vtkNew<vtkOutlineFilter>();
     if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
-        _filter->SetInputConnection(d->algorithmOutput());
+        _last_in = d->algorithmOutput();
     _filter->SetInputConnection(_last_in);
     if (_last_in) {
         Q_EMIT dataUpdated(0);

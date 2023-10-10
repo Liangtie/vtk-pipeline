@@ -81,7 +81,7 @@ std::shared_ptr<NodeData> vtkPolyDataMapperDelegate::outData(PortIndex)
 {
     if (_filter->GetInput())
         _filter->Update();
-    return std::make_shared<vtkMapperData>(_filter);
+    return std::make_shared<vtkMapperData>(_filter.Get());
 }
 
 void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,
@@ -89,7 +89,7 @@ void vtkPolyDataMapperDelegate::setInData(std::shared_ptr<NodeData> data,
 {
     _filter = vtkNew<vtkPolyDataMapper>();
     if (auto d = std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
-        _filter->SetInputConnection(d->algorithmOutput());
+        _last_in = d->algorithmOutput();
     _filter->SetInputConnection(_last_in);
     // _filter->ScalarVisibilityOff();
     if (_last_in) {

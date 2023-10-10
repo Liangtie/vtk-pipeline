@@ -103,7 +103,7 @@ void vtkPolyDataNormalsDelegate::setInData(std::shared_ptr<NodeData> data,
         case SRC:
             if (auto d =
                     std::dynamic_pointer_cast<VtkAlgorithmOutputData>(data))
-                _filter->SetInputConnection(d->algorithmOutput());
+                _last_in = (d->algorithmOutput());
             break;
     }
     _filter->SetInputConnection(_last_in);
